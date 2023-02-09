@@ -1,42 +1,46 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.App {
+  display: flex;
+  width: 100vw;
+  color: #000;
+  min-height: 100vh;
+  flex-direction: column;
+  font-size: 1rem;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+:root {
+  --btn-bg-color: rgb(60, 122, 209);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.navbar {
+  position: fixed;
+  height: 10vh;
+  background: #fff;
+  width: 100vw;
+  box-shadow: 0 0 20px 2px rgb(223, 223, 223);
+  padding: 10px;
+  box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.layout-main {
+  padding-top: 10vh;
+  width: 100vw;
+  display: flex;
 }
 
-.card {
-  padding: 2em;
+.layout-base {
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+  padding: 10px;
+  box-sizing: border-box;
+  box-shadow: 0 0 20px 2px rgb(223, 223, 223);
 }
 
-.read-the-docs {
-  color: #888;
+body::-webkit-scrollbar {
+  display: none;
+}
+
+e-button {
+  background: var(--btn-bg-color);
+  padding: 5px 10px;
 }
