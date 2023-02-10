@@ -33,7 +33,7 @@
   height: 90vh;
   padding: 10px;
   box-sizing: border-box;
-  box-shadow: 0 0 20px 2px rgb(223, 223, 223);
+  border: 1px solid rgb(232, 230, 230);
 }
 
 body::-webkit-scrollbar {
@@ -43,4 +43,8 @@ body::-webkit-scrollbar {
 e-button {
   background: var(--btn-bg-color);
   padding: 5px 10px;
+}
+
+.comp-edit-active {
+  border: 2px solid #000;
 }
