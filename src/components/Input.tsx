@@ -8,7 +8,7 @@ const Input = (props: Props) => {
   const { data } = props
 
   return (
-    <input placeholder='请输入你的数据' {...data} />
+    <input className='e-input' placeholder='请输入你的数据' {...data} />
   )
 }
 

@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import { Context } from "../App";
-import editObj from '../editor/editObj'
 import editorComps from "../editor/index";
 type Props = {
   style: React.CSSProperties
@@ -9,14 +8,20 @@ type Props = {
 
 const Editor = (props: Props) => {
   const ctx = useContext(Context)
-  const { activeCompId, globalObj, compName } = ctx
+  const { activeCompId, globalObj, compName, setActiveEditId, editObj } = ctx
 
   return (
-    <div {...props}>编辑区
+    <div {...props}>
+      <div className="main-title">编辑区</div>
+
       {
         compName && editObj[compName].map(editItem => {
           return Object.entries(editorComps).map(([name, EditorComp], index) => {
-            return editItem.type === name ? <EditorComp data={editItem.data} target={editItem.target} /> : <></>
+            return editItem.type === name ?
+              <div onClick={() => (setActiveEditId)(editItem.id)}>
+                <EditorComp data={editItem.data} target={editItem.target} />
+              </div>
+              : <></>
           })
         })
       }

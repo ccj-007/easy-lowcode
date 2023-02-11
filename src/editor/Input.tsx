@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { Context } from "../App";
+
 type Props = {
   data?: any
   target: string
@@ -8,11 +9,12 @@ type Props = {
 const Input = (props: Props) => {
   const { data, target } = props
   const ctx = useContext(Context)
-  const { editGlobalObj } = ctx
+  const { editGlobalObj, editEditorObj } = ctx
 
   const handleChange = (e) => {
     const value = e.target.value
-    console.log(value);
+    console.log("aaaa", data);
+    editEditorObj('value', value)
     editGlobalObj(target, value)
   }
   return (

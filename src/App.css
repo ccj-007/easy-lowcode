@@ -13,16 +13,27 @@
 
 .navbar {
   position: fixed;
-  height: 10vh;
+  height: 50px;
   background: #fff;
   width: 100vw;
   box-shadow: 0 0 20px 2px rgb(223, 223, 223);
-  padding: 10px;
+  padding: 0 10px;
   box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.navbar-content {
+  padding-right: 10px;
+  display: flex;
+  cursor: pointer;
+}
+.navbar-item {
+  margin-right: 10px;
 }
 
 .layout-main {
-  padding-top: 10vh;
+  padding-top: 50px;
   width: 100vw;
   display: flex;
 }
@@ -30,21 +41,68 @@
 .layout-base {
   display: flex;
   flex-direction: column;
-  height: 90vh;
+  height: calc(100vh - 50px);
   padding: 10px;
   box-sizing: border-box;
   border: 1px solid rgb(232, 230, 230);
+  overflow-y: auto;
 }
 
 body::-webkit-scrollbar {
   display: none;
 }
+.layout-base::-webkit-scrollbar {
+  display: none;
+}
 
-e-button {
-  background: var(--btn-bg-color);
+.e-button {
   padding: 5px 10px;
+  background-color: #2e74a8;
+  color: #fff;
+  width: 200px;
+}
+.e-input {
+  background: #fff;
+  border-color: #125c9b;
+  text-decoration: none;
+  outline: none;
+  color: #125c9b;
 }
 
 .comp-edit-active {
   border: 2px solid #000;
+}
+
+.tools {
+  width: 100%;
+  background: #aaa;
+  display: flex;
+  font-size: 12px;
+}
+.tools-item {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.tools-item:hover {
+  opacity: .7;
+}
+
+.jsonView {
+  width: 100%;
+  background: rgba(177, 177, 177, 0.182);
+  font-size: 12px;
+  text-align: left;
+}
+.cm-scroller {
+  height: 300px !important;
+}
+
+.main-title {
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+.sub-title {
+  font-size: 12px;
+  margin: 10px 0;
 }
