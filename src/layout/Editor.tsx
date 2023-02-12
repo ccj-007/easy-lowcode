@@ -13,12 +13,11 @@ const Editor = (props: Props) => {
   return (
     <div {...props}>
       <div className="main-title">编辑区</div>
-
       {
-        compName && editObj[compName].map(editItem => {
+        compName && editObj[compName].map((editItem: any) => {
           return Object.entries(editorComps).map(([name, EditorComp], index) => {
             return editItem.type === name ?
-              <div onClick={() => (setActiveEditId)(editItem.id)}>
+              <div onClick={() => (setActiveEditId)(editItem.id)} className='edit-item'>
                 <EditorComp data={editItem.data} target={editItem.target} />
               </div>
               : <></>

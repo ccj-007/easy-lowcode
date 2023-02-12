@@ -1,0 +1,44 @@
+.phone-warp {
+  position: relative;
+  width: 100%;
+  height: 800px;
+}
+.phone {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 400px;
+  height: 800px;
+  margin-top: -400px;
+  margin-left: -200px;
+  border: 20px solid #000;
+  border-radius: 60px;
+}
+.phone-content {
+  padding: 10px;
+  padding-top: 23px;
+}
+
+.phone:before {
+  content: "";
+  position: absolute;
+  width: 421px;
+  height: 815px;
+  box-shadow: 0 0 24px #fff;/*阴影*/
+  border-radius: 45px;
+  left: -10px;
+  top: -8px;
+}
+
+.phone:after {
+  content: "";
+  position: absolute;
+  width: 382px;
+  height: 751px;
+  border: 16px solid #19191d;
+  border-top: 30px solid #19191d;
+  border-bottom: 30px solid #19191d;
+  border-radius: 41px;
+  left: -6px;
+  top: -6px;
+}

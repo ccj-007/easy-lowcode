@@ -1,11 +1,9 @@
-import React, { useState, useRef, useMemo } from 'react'
+import React, { useState, useRef } from 'react'
+import { Routes, Route, Outlet } from "react-router";
+import { BrowserRouter } from "react-router-dom";
 import './App.css'
-import Navbar from "./layout/Navbar";
-import CompBar from './layout/CompBar';
-import Editor from './layout/Editor';
-import Main from './layout/Main';
-import _, { values } from "lodash";
-import { v4 as uuidv4 } from 'uuid';
+import { Navbar, CompBar, Editor, Main, MainPreview } from "./layout";
+import _ from "lodash";
 export const Context = React.createContext<any>('')
 import json, { getCompId } from "./components/jsonObj";
 import editJSON from "./editor/editObj";
@@ -14,11 +12,15 @@ const saveJSON = (key: string, data: any) => {
   localStorage.setItem(key, JSON.stringify(data))
 }
 const getJSON = (key: string) => {
-  return JSON.parse(localStorage.getItem(key))
+  const obj = localStorage.getItem(key)
+  return obj ? JSON.parse(obj) : null
 }
 
 export const defaultGlobalObj = ({
-  page: 'default',
+  type: 'page',
+  title: '默认标题',
+  routeName: 'default',
+  initApi: "",
   content: [
     // json.Button,
     // json.Input
@@ -32,6 +34,8 @@ function App() {
 
   const [activeCompId, setActiveCompId] = useState(null)
   const [activeEditId, setActiveEditId] = useState(null)
+  const [preview, setPreview] = useState(false)
+  const [renderPC, setRenderPC] = useState(true)
 
   const addGlobalObj = (data: any) => {
     let newData = _.cloneDeep(data)
@@ -104,17 +108,37 @@ function App() {
       setActiveEditId,
       selectEdit,
       editName,
-      editEditorObj
+      editEditorObj,
+      //是否预览
+      preview,
+      setPreview,
+      //默认渲染PC
+      renderPC,
+      setRenderPC
     }}>
       <div className="App">
-        <Navbar></Navbar>
-        <div className='layout-main'>
-          <CompBar className='layout-base' style={{ width: '20vw' }} ></CompBar>
-          <Main className='layout-base' style={{ width: '60vw' }} ref={mainRef} ></Main>
-          <Editor className='layout-base' style={{ width: '20vw' }}></Editor>
-        </div>
+        <BrowserRouter>
+          <Navbar></Navbar>
+          <Routes >
+            <Route element={
+              <>
+                <div className='layout-main'>
+                  <CompBar className='layout-base' style={{ width: '20vw' }} ></CompBar>
+                  <Outlet></Outlet>
+                  <Editor className='layout-base' style={{ width: '20vw' }}></Editor>
+                </div></>
+            } path="/" >
+              <Route element={<Main Main className='layout-base' style={{ width: '60vw' }} ref={mainRef} ></Main>}
+                path="/edit"
+              ></Route>
+              <Route element={<MainPreview className='layout-base' ref={mainRef} style={{ width: '60vw' }}>我是预览的</MainPreview>}
+                path="/preview"
+              ></Route>
+            </Route>
+          </Routes>
+        </BrowserRouter>
       </div>
-    </Context.Provider>
+    </Context.Provider >
   )
 }
 

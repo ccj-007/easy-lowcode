@@ -106,3 +106,6 @@ body::-webkit-scrollbar {
   font-size: 12px;
   margin: 10px 0;
 }
+.edit-item {
+  margin-bottom: 10px;
+}

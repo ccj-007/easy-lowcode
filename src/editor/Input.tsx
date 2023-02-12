@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { ChangeEvent, useContext } from 'react'
 import { Context } from "../App";
 
 type Props = {
@@ -11,7 +11,7 @@ const Input = (props: Props) => {
   const ctx = useContext(Context)
   const { editGlobalObj, editEditorObj } = ctx
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
     console.log("aaaa", data);
     editEditorObj('value', value)
