@@ -1,14 +1,15 @@
 import React from 'react'
 
 type Props = {
-  data?: any
+  data?: any,
+  id: string
 }
 
 const Input = (props: Props) => {
-  const { data } = props
+  const { data, id } = props
 
   return (
-    <input className='e-input' placeholder='请输入你的数据' {...data} />
+    <input id={id} className='e-input' placeholder='请输入你的数据' {...data} />
   )
 }
 

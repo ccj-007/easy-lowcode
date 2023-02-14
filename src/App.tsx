@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Routes, Route, Outlet } from "react-router";
 import { BrowserRouter } from "react-router-dom";
 import './App.css'
@@ -6,6 +6,7 @@ import { Navbar, CompBar, Editor, Main, MainPreview } from "./layout";
 import _ from "lodash";
 export const Context = React.createContext<any>('')
 import json, { getCompId } from "./components/jsonObj";
+import Redirect from "./commonComp/Redirect";
 import editJSON from "./editor/editObj";
 
 const saveJSON = (key: string, data: any) => {
@@ -120,13 +121,16 @@ function App() {
         <BrowserRouter>
           <Navbar></Navbar>
           <Routes >
+            <Route
+              path="/"
+              element={<Redirect to="/edit" />}
+            />
             <Route element={
-              <>
-                <div className='layout-main'>
-                  <CompBar className='layout-base' style={{ width: '20vw' }} ></CompBar>
-                  <Outlet></Outlet>
-                  <Editor className='layout-base' style={{ width: '20vw' }}></Editor>
-                </div></>
+              <div className='layout-main'>
+                <CompBar className='layout-base' style={{ width: '20vw' }} ></CompBar>
+                <Outlet></Outlet>
+                <Editor className='layout-base' style={{ width: '20vw' }}></Editor>
+              </div>
             } path="/" >
               <Route element={<Main Main className='layout-base' style={{ width: '60vw' }} ref={mainRef} ></Main>}
                 path="/edit"
@@ -135,6 +139,7 @@ function App() {
                 path="/preview"
               ></Route>
             </Route>
+
           </Routes>
         </BrowserRouter>
       </div>
