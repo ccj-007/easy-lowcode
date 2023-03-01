@@ -63,7 +63,7 @@ const Main = React.forwardRef((props: Props | any, ref) => {
     startDragId.current = e.target.id
   }
 
-  const throttleDragOver = utils.throttle(handleDragOver, 1000)
+  const throttleDragOver = utils.throttle(handleDragOver, 100)
 
   const renderMainView = () => {
     return (globalObj.content).map((json: any, contentIndex: number) => {
