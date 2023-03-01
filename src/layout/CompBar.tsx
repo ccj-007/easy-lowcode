@@ -3,6 +3,8 @@ import { Context } from "../App";
 import Comps from '../components'
 import json from '../components/jsonObj'
 import JsonView from "../view/JsonView";
+import CodeView from "../view/CodeView";
+
 type Props = {
   style: React.CSSProperties
   className: string
@@ -52,6 +54,10 @@ const CompBar = (props: Props) => {
       }
       <div className='sub-title'>JSON编辑预览</div>
       <JsonView></JsonView>
+      <div className='sub-title'>源码预览</div>
+      <button onClick={() => { alert('后续会通过后端请求下载') }}>出码</button>
+      <CodeView></CodeView>
+
     </div>
   )
 }

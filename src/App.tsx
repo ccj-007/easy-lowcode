@@ -8,6 +8,7 @@ export const Context = React.createContext<any>('')
 import json, { getCompId } from "./components/jsonObj";
 import Redirect from "./commonComp/Redirect";
 import editJSON from "./editor/editObj";
+import { getFileCodeTree } from "./outScan/index";
 
 const saveJSON = (key: string, data: any) => {
   localStorage.setItem(key, JSON.stringify(data))
@@ -32,6 +33,8 @@ function App() {
   const mainRef = useRef<any>(null)
   const [globalObj, setGlobalObj] = useState<any>(getJSON('global_json') || defaultGlobalObj)
   const [editObj, setEditObj] = useState<any>(getJSON('edit_json') || editJSON)
+  const [codeObj, setCodeObj] = useState({})
+
 
   const [activeCompId, setActiveCompId] = useState(null)
   const [activeEditId, setActiveEditId] = useState(null)
@@ -88,6 +91,9 @@ function App() {
       setActiveCompId(comp.id)
     }
   }, [])
+  React.useEffect(() => {
+    setCodeObj(getFileCodeTree(globalObj))
+  }, [globalObj])
 
   return (
     <Context.Provider value={{
@@ -115,7 +121,9 @@ function App() {
       setPreview,
       //默认渲染PC
       renderPC,
-      setRenderPC
+      setRenderPC,
+      //code
+      codeObj,
     }}>
       <div className="App">
         <BrowserRouter>

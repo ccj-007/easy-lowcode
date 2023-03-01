@@ -1,5 +1,5 @@
 /**
- * 前端发送服务端json，服务端通过接口返回给前端对应的源码文件
+ * 前端构建文件依赖树，给后端以生成对应的文件并请求返回
  */
 import Handlebars from "Handlebars";
 import fs from "fs";
