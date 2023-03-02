@@ -5,7 +5,7 @@ type Props = {
 }
 const Navbar = (props: Props) => {
   const navigate = useNavigate()
-  const { setPreview, preview, renderPC, setRenderPC, globalObj, saveGlobalObj } = useCtx()
+  const { setPreview, preview, renderPC, setRenderPC, globalObj, saveGlobalObj, codeObj } = useCtx()
 
   const handlePreview = () => {
     preview ? navigate('/edit') : navigate('/preview')
@@ -18,6 +18,15 @@ const Navbar = (props: Props) => {
 
   const handleSave = () => {
     saveGlobalObj(globalObj)
+    fetch('http://localhost:7001/setCodeTree', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        codeObj: codeObj
+      })
+    })
   }
 
   return (

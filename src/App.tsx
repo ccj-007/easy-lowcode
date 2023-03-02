@@ -92,7 +92,9 @@ function App() {
     }
   }, [])
   React.useEffect(() => {
-    setCodeObj(getFileCodeTree(globalObj))
+    const code = getFileCodeTree(globalObj)
+
+    setCodeObj(code)
   }, [globalObj])
 
   return (

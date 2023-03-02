@@ -10,12 +10,17 @@ const JsonView = (props: Props) => {
   const { codeObj } = ctx
 
   return (
-    <CodeMirror
-      className='jsonView'
-      theme='light'
-      value={JSON.stringify(codeObj, null, '\t')}
-      extensions={[javascript()]}
-    />
+    <>
+      {
+        codeObj && codeObj.root &&
+        <CodeMirror
+          className='jsonView'
+          theme='light'
+          value={JSON.stringify(codeObj.root[0]['App.js'], null, '\t')}
+          extensions={[javascript()]}
+        />
+      }
+    </>
   );
 }
 

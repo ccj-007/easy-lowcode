@@ -2,7 +2,7 @@ import React from 'react'
 
 type Props = {
   data?: any,
-  id: string
+  id?: string
 }
 
 const Input = (props: Props) => {

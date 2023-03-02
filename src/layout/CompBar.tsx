@@ -36,6 +36,26 @@ const CompBar = (props: Props) => {
 
   }
 
+  const handleDownload = () => {
+    //这里暂时没有递归依赖树
+    fetch('http://localhost:7001/project', {
+      method: 'get',
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+    }).then((Body) => {
+      return Body.blob()
+    }).then((blob) => {
+      var link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'App.js';
+      link.click();
+      window.URL.revokeObjectURL(link.href);
+    }).catch(() => {
+      alert("请检查是否打开node服务")
+    })
+  }
+
   return (
     <div {...props}>
       <div className="main-title">物料区</div>
@@ -55,7 +75,7 @@ const CompBar = (props: Props) => {
       <div className='sub-title'>JSON编辑预览</div>
       <JsonView></JsonView>
       <div className='sub-title'>源码预览</div>
-      <button onClick={() => { alert('后续会通过后端请求下载') }}>出码</button>
+      <button onClick={handleDownload}>下载源码</button>
       <CodeView></CodeView>
 
     </div>
