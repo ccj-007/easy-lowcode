@@ -12,8 +12,6 @@ const JsonView = (props: Props) => {
   const onChange = React.useCallback((value: any, viewUpdate: any) => {
     let obj = JSON.parse(value)
     saveGlobalObj(obj)
-    console.log('value:', obj);
-    console.log('viewUpdate:', viewUpdate);
   }, []);
   return (
     <CodeMirror

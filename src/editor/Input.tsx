@@ -13,7 +13,6 @@ const Input = (props: Props) => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
-    console.log("aaaa", data);
     editEditorObj('value', value)
     editGlobalObj(target, value)
   }

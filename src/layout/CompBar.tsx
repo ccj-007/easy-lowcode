@@ -12,24 +12,17 @@ type Props = {
 
 const CompBar = (props: Props) => {
   const ctx = useContext(Context)
-  const { addGlobalObj, setActiveCompId } = ctx
-  const handleDrag = (e: any) => {
-  }
+  const { addGlobalObj } = ctx
 
   const handleDragEnd = (e: any) => {
     const { clientX, clientY } = e
     const mainRef = ctx.mainRef.current
-    const globalObj = ctx.globalObj
 
     const { offsetTop, offsetLeft, offsetWidth } = mainRef
     if (clientX > offsetLeft && clientX < offsetLeft + offsetWidth && clientY > offsetTop) {
-      console.log("在主舞台区域");
-      const CompName = e.target.getAttribute('data-name')
-      //@ts-ignore
-      addGlobalObj(json[CompName])
+      const CompName = (e.target as HTMLElement).getAttribute('data-name')
+      CompName && json[CompName] && addGlobalObj(json[CompName])
     }
-
-    console.log(offsetTop, offsetLeft, offsetWidth);
   }
 
   const handleClick = (e: any) => {
@@ -64,8 +57,8 @@ const CompBar = (props: Props) => {
           return (
             <>
               <div className="sub-title">{CompName}</div>
-              <div className='comp-drag-warp' onDrag={handleDrag}
-                onDragEnd={handleDragEnd} onClick={handleClick} data-name={CompName} draggable>
+              <div className='comp-drag-warp'
+                onDragEnd={(e) => handleDragEnd(e)} onClick={handleClick} data-name={CompName} draggable>
                 <Comp key={CompName}></Comp>
               </div>
             </>
@@ -78,7 +71,7 @@ const CompBar = (props: Props) => {
       <button onClick={handleDownload}>下载源码</button>
       <CodeView></CodeView>
 
-    </div>
+    </div >
   )
 }
 

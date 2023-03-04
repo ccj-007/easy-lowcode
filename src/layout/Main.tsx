@@ -51,9 +51,8 @@ const Main = React.forwardRef((props: Props | any, ref) => {
         let oldIdx = content.findIndex((item: any) => item.id === startDragId.current)
         let newIdx = content.findIndex((item: any) => item.id === endDragId.current) as any
 
-        if (startDragId.current !== endDragId.current) {
+        if (startDragId.current !== endDragId.current && newIdx > -1 && oldIdx > -1) {
           [content[oldIdx], content[newIdx]] = [content[newIdx], content[oldIdx]]
-          console.log(newData);
           setGlobalObj(newData)
         }
       }
@@ -68,7 +67,7 @@ const Main = React.forwardRef((props: Props | any, ref) => {
   const renderMainView = () => {
     return (globalObj.content).map((json: any, contentIndex: number) => {
       return Object.entries(Comps).map(([name, Comp], CompIndex) => {
-        return name === json.componentName ?
+        return json && json.componentName && name === json.componentName ?
           <div className={activeCompId === json.id ? 'comp-edit-active' : ''} onClick={() => setActiveCompId(json.id)} onDragOver={throttleDragOver} onDragStart={handleDragStart} id={json.id}
             draggable>
             <Comp key={json.id} data={json.data} id={json.id} />
