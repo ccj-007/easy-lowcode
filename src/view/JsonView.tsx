@@ -1,7 +1,5 @@
 import React, { useRef, useEffect, useContext } from 'react'
-import CodeMirror from '@uiw/react-codemirror';
-import { json } from '@codemirror/lang-json';
-
+import CodeMirrorWarp from "./CodeMirrorWarp";
 import { Context } from "../App";
 type Props = {}
 
@@ -14,12 +12,8 @@ const JsonView = (props: Props) => {
     saveGlobalObj(obj)
   }, []);
   return (
-    <CodeMirror
-      className='jsonView'
-      theme='light'
-      value={JSON.stringify(globalObj, null, '\t')}
-      extensions={[json()]}
-      onChange={onChange}
+    <CodeMirrorWarp
+      data={JSON.stringify(globalObj, null, '\t')}
     />
   );
 }

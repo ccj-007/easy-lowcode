@@ -48,11 +48,14 @@
   overflow-y: auto;
 }
 
-body::-webkit-scrollbar {
-  display: none;
-}
-.layout-base::-webkit-scrollbar {
-  display: none;
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  background: #fff;
+} 
+::-webkit-scrollbar-thumb {
+  background: rgb(217, 217, 217);
+  border-radius: 5px;
 }
 
 .e-button {

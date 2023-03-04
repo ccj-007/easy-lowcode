@@ -9,6 +9,9 @@ specifiers:
   '@types/node': ^18.14.2
   '@types/react': ^18.0.27
   '@types/react-dom': ^18.0.10
+  '@uiw/codemirror-extensions-basic-setup': ^4.19.9
+  '@uiw/codemirror-extensions-langs': ^4.19.9
+  '@uiw/codemirror-themes-all': ^4.19.9
   '@uiw/react-codemirror': ^4.19.8
   '@vitejs/plugin-react': ^3.1.0
   classnames: ^2.3.2
@@ -38,6 +41,9 @@ dependencies:
   '@codemirror/lang-markdown': 6.1.0
   '@types/lodash': 4.14.191
   '@types/node': 18.14.2
+  '@uiw/codemirror-extensions-basic-setup': 4.19.9
+  '@uiw/codemirror-extensions-langs': 4.19.9
+  '@uiw/codemirror-themes-all': 4.19.9
   '@uiw/react-codemirror': 4.19.8_biqbaboplfbrettd7655fr4n2y
   classnames: 2.3.2
   handlebars: 4.7.7
@@ -318,6 +324,13 @@ packages:
       '@lezer/common': 1.0.2
     dev: false
 
+  /@codemirror/lang-cpp/6.0.2:
+    resolution: {integrity: sha512-6oYEYUKHvrnacXxWxYa6t4puTlbN3dgV662BDfSH8+MfjQjVmP697/KYTDOqpxgerkvoNm7q5wlFMBeX8ZMocg==}
+    dependencies:
+      '@codemirror/language': 6.6.0
+      '@lezer/cpp': 1.1.0
+    dev: false
+
   /@codemirror/lang-css/6.0.2:
     resolution: {integrity: sha512-4V4zmUOl2Glx0GWw0HiO1oGD4zvMlIQ3zx5hXOE6ipCjhohig2bhWRAasrZylH9pRNTcl1VMa59Lsl8lZWlTzw==}
     dependencies:
@@ -341,6 +354,13 @@ packages:
       '@lezer/html': 1.3.3
     dev: false
 
+  /@codemirror/lang-java/6.0.1:
+    resolution: {integrity: sha512-OOnmhH67h97jHzCuFaIEspbmsT98fNdhVhmA3zCxW0cn7l8rChDhZtwiwJ/JOKXgfm4J+ELxQihxaI7bj7mJRg==}
+    dependencies:
+      '@codemirror/language': 6.6.0
+      '@lezer/java': 1.0.3
+    dev: false
+
   /@codemirror/lang-javascript/6.1.4:
     resolution: {integrity: sha512-OxLf7OfOZBTMRMi6BO/F72MNGmgOd9B0vetOLvHsDACFXayBzW8fm8aWnDM0yuy68wTK03MBf4HbjSBNRG5q7A==}
     dependencies:
@@ -360,6 +380,26 @@ packages:
       '@lezer/json': 1.0.0
     dev: false
 
+  /@codemirror/lang-lezer/6.0.1:
+    resolution: {integrity: sha512-WHwjI7OqKFBEfkunohweqA5B/jIlxaZso6Nl3weVckz8EafYbPZldQEKSDb4QQ9H9BUkle4PVELP4sftKoA0uQ==}
+    dependencies:
+      '@codemirror/language': 6.6.0
+      '@codemirror/state': 6.2.0
+      '@lezer/common': 1.0.2
+      '@lezer/lezer': 1.1.1
+    dev: false
+
+  /@codemirror/lang-markdown/6.0.5:
+    resolution: {integrity: sha512-qH0THRYc2M7pIJoAp6jstXZkv8ZMVhNaBm7Bs4+0SLHhHlwX53txFy98AcPwrfq0Sh8Zi6RAuj9j/GyL8E1MKw==}
+    dependencies:
+      '@codemirror/lang-html': 6.4.2
+      '@codemirror/language': 6.6.0
+      '@codemirror/state': 6.2.0
+      '@codemirror/view': 6.8.1
+      '@lezer/common': 1.0.2
+      '@lezer/markdown': 1.0.2
+    dev: false
+
   /@codemirror/lang-markdown/6.1.0:
     resolution: {integrity: sha512-HQDJg1Js19fPKKsI3Rp1X0J6mxyrRy2NX6+Evh0+/jGm6IZHL5ygMGKBYNWKXodoDQFvgdofNRG33gWOwV59Ag==}
     dependencies:
@@ -369,6 +409,79 @@ packages:
       '@codemirror/view': 6.8.1
       '@lezer/common': 1.0.2
       '@lezer/markdown': 1.0.2
+    dev: false
+
+  /@codemirror/lang-php/6.0.1:
+    resolution: {integrity: sha512-ublojMdw/PNWa7qdN5TMsjmqkNuTBD3k6ndZ4Z0S25SBAiweFGyY68AS3xNcIOlb6DDFDvKlinLQ40vSLqf8xA==}
+    dependencies:
+      '@codemirror/lang-html': 6.4.2
+      '@codemirror/language': 6.6.0
+      '@codemirror/state': 6.2.0
+      '@lezer/common': 1.0.2
+      '@lezer/php': 1.0.1
+    dev: false
+
+  /@codemirror/lang-python/6.1.2:
+    resolution: {integrity: sha512-nbQfifLBZstpt6Oo4XxA2LOzlSp4b/7Bc5cmodG1R+Cs5PLLCTUvsMNWDnziiCfTOG/SW1rVzXq/GbIr6WXlcw==}
+    dependencies:
+      '@codemirror/autocomplete': 6.4.0
+      '@codemirror/language': 6.6.0
+      '@lezer/python': 1.1.1
+    dev: false
+
+  /@codemirror/lang-rust/6.0.1:
+    resolution: {integrity: sha512-344EMWFBzWArHWdZn/NcgkwMvZIWUR1GEBdwG8FEp++6o6vT6KL9V7vGs2ONsKxxFUPXKI0SPcWhyYyl2zPYxQ==}
+    dependencies:
+      '@codemirror/language': 6.6.0
+      '@lezer/rust': 1.0.0
+    dev: false
+
+  /@codemirror/lang-sql/6.4.0:
+    resolution: {integrity: sha512-UWGK1+zc9+JtkiT+XxHByp4N6VLgLvC2x0tIudrJG26gyNtn0hWOVoB0A8kh/NABPWkKl3tLWDYf2qOBJS9Zdw==}
+    dependencies:
+      '@codemirror/autocomplete': 6.4.0
+      '@codemirror/language': 6.6.0
+      '@codemirror/state': 6.2.0
+      '@lezer/highlight': 1.1.3
+      '@lezer/lr': 1.3.3
+    dev: false
+
+  /@codemirror/lang-wast/6.0.1:
+    resolution: {integrity: sha512-sQLsqhRjl2MWG3rxZysX+2XAyed48KhLBHLgq9xcKxIJu3npH/G+BIXW5NM5mHeDUjG0jcGh9BcjP0NfMStuzA==}
+    dependencies:
+      '@codemirror/language': 6.6.0
+      '@lezer/highlight': 1.1.3
+      '@lezer/lr': 1.3.3
+    dev: false
+
+  /@codemirror/lang-xml/6.0.2:
+    resolution: {integrity: sha512-JQYZjHL2LAfpiZI2/qZ/qzDuSqmGKMwyApYmEUUCTxLM4MWS7sATUEfIguZQr9Zjx/7gcdnewb039smF6nC2zw==}
+    dependencies:
+      '@codemirror/autocomplete': 6.4.0
+      '@codemirror/language': 6.6.0
+      '@codemirror/state': 6.2.0
+      '@lezer/common': 1.0.2
+      '@lezer/xml': 1.0.1
+    dev: false
+
+  /@codemirror/language-data/6.1.0:
+    resolution: {integrity: sha512-g9V23fuLRI9AEbpM6bDy1oquqgpFlIDHTihUhL21NPmxp+x67ZJbsKk+V71W7/Bj8SCqEO1PtqQA/tDGgt1nfw==}
+    dependencies:
+      '@codemirror/lang-cpp': 6.0.2
+      '@codemirror/lang-css': 6.0.2
+      '@codemirror/lang-html': 6.4.2
+      '@codemirror/lang-java': 6.0.1
+      '@codemirror/lang-javascript': 6.1.4
+      '@codemirror/lang-json': 6.0.1
+      '@codemirror/lang-markdown': 6.1.0
+      '@codemirror/lang-php': 6.0.1
+      '@codemirror/lang-python': 6.1.2
+      '@codemirror/lang-rust': 6.0.1
+      '@codemirror/lang-sql': 6.4.0
+      '@codemirror/lang-wast': 6.0.1
+      '@codemirror/lang-xml': 6.0.2
+      '@codemirror/language': 6.6.0
+      '@codemirror/legacy-modes': 6.3.1
     dev: false
 
   /@codemirror/language/6.5.0:
@@ -391,6 +504,12 @@ packages:
       '@lezer/highlight': 1.1.3
       '@lezer/lr': 1.3.3
       style-mod: 4.0.0
+    dev: false
+
+  /@codemirror/legacy-modes/6.3.1:
+    resolution: {integrity: sha512-icXmCs4Mhst2F8mE0TNpmG6l7YTj1uxam3AbZaFaabINH5oWAdg2CfR/PVi+d/rqxJ+TuTnvkKK5GILHrNThtw==}
+    dependencies:
+      '@codemirror/language': 6.6.0
     dev: false
 
   /@codemirror/lint/6.1.0:
@@ -670,6 +789,13 @@ packages:
     resolution: {integrity: sha512-SVgiGtMnMnW3ActR8SXgsDhw7a0w0ChHSYAyAUxxrOiJ1OqYWEKk/xJd84tTSPo1mo6DXLObAJALNnd0Hrv7Ng==}
     dev: false
 
+  /@lezer/cpp/1.1.0:
+    resolution: {integrity: sha512-zUHrjNFuY/DOZCkOBJ6qItQIkcopHM/Zv/QOE0a4XNG3HDNahxTNu5fQYl8dIuKCpxCqRdMl5cEwl5zekFc7BA==}
+    dependencies:
+      '@lezer/highlight': 1.1.3
+      '@lezer/lr': 1.3.3
+    dev: false
+
   /@lezer/css/1.1.1:
     resolution: {integrity: sha512-mSjx+unLLapEqdOYDejnGBokB5+AiJKZVclmud0MKQOKx3DLJ5b5VTCstgDDknR6iIV4gVrN6euzsCnj0A2gQA==}
     dependencies:
@@ -691,6 +817,13 @@ packages:
       '@lezer/lr': 1.3.3
     dev: false
 
+  /@lezer/java/1.0.3:
+    resolution: {integrity: sha512-kKN17wmgP1cgHb8juR4pwVSPMKkDMzY/lAPbBsZ1fpXwbk2sg3N1kIrf0q+LefxgrANaQb/eNO7+m2QPruTFng==}
+    dependencies:
+      '@lezer/highlight': 1.1.3
+      '@lezer/lr': 1.3.3
+    dev: false
+
   /@lezer/javascript/1.4.1:
     resolution: {integrity: sha512-Hqx36DJeYhKtdpc7wBYPR0XF56ZzIp0IkMO/zNNj80xcaFOV4Oj/P7TQc/8k2TxNhzl7tV5tXS8ZOCPbT4L3nA==}
     dependencies:
@@ -700,6 +833,13 @@ packages:
 
   /@lezer/json/1.0.0:
     resolution: {integrity: sha512-zbAuUY09RBzCoCA3lJ1+ypKw5WSNvLqGMtasdW6HvVOqZoCpPr8eWrsGnOVWGKGn8Rh21FnrKRVlJXrGAVUqRw==}
+    dependencies:
+      '@lezer/highlight': 1.1.3
+      '@lezer/lr': 1.3.3
+    dev: false
+
+  /@lezer/lezer/1.1.1:
+    resolution: {integrity: sha512-jwoPZUnnrxsbgCqffX9x4SsiGWfKQ5ru3k+74JrJCTJuGiVrnEnfqVyPJAy11FhKi3InK/qUHNj1MHub6dmawg==}
     dependencies:
       '@lezer/highlight': 1.1.3
       '@lezer/lr': 1.3.3
@@ -716,6 +856,34 @@ packages:
     dependencies:
       '@lezer/common': 1.0.2
       '@lezer/highlight': 1.1.3
+    dev: false
+
+  /@lezer/php/1.0.1:
+    resolution: {integrity: sha512-aqdCQJOXJ66De22vzdwnuC502hIaG9EnPK2rSi+ebXyUd+j7GAX1mRjWZOVOmf3GST1YUfUCu6WXDiEgDGOVwA==}
+    dependencies:
+      '@lezer/highlight': 1.1.3
+      '@lezer/lr': 1.3.3
+    dev: false
+
+  /@lezer/python/1.1.1:
+    resolution: {integrity: sha512-ArUGh9kvdaOVu6IkSaYUS9WFQeMAFVWKRuZo6vexnxoeCLnxf0Y9DCFEAMMa7W9SQBGYE55OarSpPqSkdOXSCA==}
+    dependencies:
+      '@lezer/highlight': 1.1.3
+      '@lezer/lr': 1.3.3
+    dev: false
+
+  /@lezer/rust/1.0.0:
+    resolution: {integrity: sha512-IpGAxIjNxYmX9ra6GfQTSPegdCAWNeq23WNmrsMMQI7YNSvKtYxO4TX5rgZUmbhEucWn0KTBMeDEPXg99YKtTA==}
+    dependencies:
+      '@lezer/highlight': 1.1.3
+      '@lezer/lr': 1.3.3
+    dev: false
+
+  /@lezer/xml/1.0.1:
+    resolution: {integrity: sha512-jMDXrV953sDAUEMI25VNrI9dz94Ai96FfeglytFINhhwQ867HKlCE2jt3AwZTCT7M528WxdDWv/Ty8e9wizwmQ==}
+    dependencies:
+      '@lezer/highlight': 1.1.3
+      '@lezer/lr': 1.3.3
     dev: false
 
   /@remix-run/router/1.3.2:
@@ -760,6 +928,213 @@ packages:
       '@codemirror/language': 6.6.0
       '@codemirror/lint': 6.1.0
       '@codemirror/search': 6.2.3
+      '@codemirror/state': 6.2.0
+      '@codemirror/view': 6.8.1
+    dev: false
+
+  /@uiw/codemirror-extensions-basic-setup/4.19.9:
+    resolution: {integrity: sha512-O4yAgVpD3Pon4t4+lwZ2MTGg2TeU/Jv8YzKS9ap4fP/WMTVrKmpdq+DOafbhZSlhmU0XGfQPPJ4WX6rtZgx3Rw==}
+    dependencies:
+      '@codemirror/autocomplete': 6.4.0
+      '@codemirror/commands': 6.2.0
+      '@codemirror/language': 6.6.0
+      '@codemirror/lint': 6.1.0
+      '@codemirror/search': 6.2.3
+      '@codemirror/state': 6.2.0
+      '@codemirror/view': 6.8.1
+    dev: false
+
+  /@uiw/codemirror-extensions-langs/4.19.9:
+    resolution: {integrity: sha512-K3tJQa8GUAOT6Gma97PZKAsPhUc+2jdGovDfq9VgAivDxVkv9gOmTw46Z6Vgt+vyYMjJxTnag9/qNMdXoiRFvA==}
+    dependencies:
+      '@codemirror/lang-cpp': 6.0.2
+      '@codemirror/lang-html': 6.4.2
+      '@codemirror/lang-java': 6.0.1
+      '@codemirror/lang-javascript': 6.1.4
+      '@codemirror/lang-json': 6.0.1
+      '@codemirror/lang-lezer': 6.0.1
+      '@codemirror/lang-markdown': 6.0.5
+      '@codemirror/lang-php': 6.0.1
+      '@codemirror/lang-python': 6.1.2
+      '@codemirror/lang-rust': 6.0.1
+      '@codemirror/lang-sql': 6.4.0
+      '@codemirror/lang-wast': 6.0.1
+      '@codemirror/lang-xml': 6.0.2
+      '@codemirror/language-data': 6.1.0
+      '@codemirror/legacy-modes': 6.3.1
+    dev: false
+
+  /@uiw/codemirror-theme-abcdef/4.19.9:
+    resolution: {integrity: sha512-F2ChAT9+ryD3hhzoHmVUmINxJKl6n+A/I2LTH4Gf9i0VFLvGRpBUGRmPqct3csIK34eG/LyPikoQremVb+p5sg==}
+    dependencies:
+      '@uiw/codemirror-themes': 4.19.9
+    dev: false
+
+  /@uiw/codemirror-theme-androidstudio/4.19.9:
+    resolution: {integrity: sha512-Kaf425J4q7+dy0HhDzGlXNEm4AYE+PofWpPWyek45xlKRn0fFfEqdtfwQR+7qBwF4+CazOBawT5Jx6S2uDnr6A==}
+    dependencies:
+      '@uiw/codemirror-themes': 4.19.9
+    dev: false
+
+  /@uiw/codemirror-theme-atomone/4.19.9:
+    resolution: {integrity: sha512-eNDEkB+GDeQ3gAH3R/WXiqFkgcNR8EC/WviZC5Nj+b/2V7AeRinjrWundgST/wYCxdqvu+s3mZ7QN1kpgqCUrQ==}
+    dependencies:
+      '@uiw/codemirror-themes': 4.19.9
+    dev: false
+
+  /@uiw/codemirror-theme-aura/4.19.9:
+    resolution: {integrity: sha512-ISU7xmN1pfjDG1pxpxii7trcmEyuEUCWT1kjAPqBCCCqkofLWPyK+ly83Xl1Xnga+zJ2eNDgh2qXUp58MC1EhQ==}
+    dependencies:
+      '@uiw/codemirror-themes': 4.19.9
+    dev: false
+
+  /@uiw/codemirror-theme-bbedit/4.19.9:
+    resolution: {integrity: sha512-fAXX8umrS8RNUimTL0QVtytX0nujpUSxqmr7X89tJddp89nNfFPIHOzQxLRwNOudCJF4/kjN15cyOseBy2dy8g==}
+    dependencies:
+      '@uiw/codemirror-themes': 4.19.9
+    dev: false
+
+  /@uiw/codemirror-theme-bespin/4.19.9:
+    resolution: {integrity: sha512-HsReyL2sgW+VdiGNgVV7rxpK0a4jC28lYCjJfLWt1tZSP/XlazTY1o77Yug3L/jYVIgC+FZjaAGyc4NAYQZv8Q==}
+    dependencies:
+      '@uiw/codemirror-themes': 4.19.9
+    dev: false
+
+  /@uiw/codemirror-theme-darcula/4.19.9:
+    resolution: {integrity: sha512-4s17IOvoOvOdlmbQZ1syO5BGv0D4POYUIZzOFeMyInpcjtYvBgKgng2KSFDdIFJMj/h/nWuusQCGivNUpRc4Iw==}
+    dependencies:
+      '@uiw/codemirror-themes': 4.19.9
+    dev: false
+
+  /@uiw/codemirror-theme-dracula/4.19.9:
+    resolution: {integrity: sha512-ZOU4WnxrRxFnH1UFK7pQS72OcSL7nY1c3nufVhwSmkQh2ZY8lEsyjAPvQxWS+4oNKFBg2VB2SuNiCO/hPxmmcA==}
+    dependencies:
+      '@uiw/codemirror-themes': 4.19.9
+    dev: false
+
+  /@uiw/codemirror-theme-duotone/4.19.9:
+    resolution: {integrity: sha512-UbC1jZRYZaWFbw5UDUfU57Emvtc3ZXpI6t0Uw7GiqZH0WKfJA1Y7mZtrZNaJxV9ua/78SHL4CflidVajwZcdmQ==}
+    dependencies:
+      '@uiw/codemirror-themes': 4.19.9
+    dev: false
+
+  /@uiw/codemirror-theme-eclipse/4.19.9:
+    resolution: {integrity: sha512-9h9aNd8TnIUxGgzJx5sraEvCEfX5RV/xwigTGoI4gVyYQxhTKKcQn1l2mOvweKYFM0Lw7tmT9+gSv0rA7x/I+Q==}
+    dependencies:
+      '@uiw/codemirror-themes': 4.19.9
+    dev: false
+
+  /@uiw/codemirror-theme-github/4.19.9:
+    resolution: {integrity: sha512-TxAJu7eFrIWUvekJ/jbev8fGx4fAYRH3FCxS21rm8B1OzF/aRcJM28zlC1rgKxMV5uG4KjWHOdvT3rNIVs1Meg==}
+    dependencies:
+      '@uiw/codemirror-themes': 4.19.9
+    dev: false
+
+  /@uiw/codemirror-theme-gruvbox-dark/4.19.9:
+    resolution: {integrity: sha512-bMGxo3fqwa0RxYnLX+gsK3E3MWzfdz3rVFu/8SvO2BEZugbknRa5eRiodQkVf8r63L5vpcjeZtVgIUsa6It81g==}
+    dependencies:
+      '@uiw/codemirror-themes': 4.19.9
+    dev: false
+
+  /@uiw/codemirror-theme-material/4.19.9:
+    resolution: {integrity: sha512-0KzOgywKEs+p3/V38u8VW8eu2m8vAkbCVcxvupnTnv0MG5pf8JaS/gVWCQqRv7lSDtwlfVB9UdGmDR2NHEZNew==}
+    dependencies:
+      '@uiw/codemirror-themes': 4.19.9
+    dev: false
+
+  /@uiw/codemirror-theme-noctis-lilac/4.19.9:
+    resolution: {integrity: sha512-qDIOenJpSizfC+ZNdUnxZbjA4LIvdIMaw+EVFk+d7J5L74ak4HObK4oDVFN8nEUgdPf1FJ0G3yLk8wwVr35yAg==}
+    dependencies:
+      '@uiw/codemirror-themes': 4.19.9
+    dev: false
+
+  /@uiw/codemirror-theme-nord/4.19.9:
+    resolution: {integrity: sha512-RQLOTYVzauO2BAvE9/21ZurtCxnVO3vbfF7Y1CExEr4vCJr7+TA/KQ/eWJwhk45C+mFbZJ8/VgBev0iqyQ8XVQ==}
+    dependencies:
+      '@uiw/codemirror-themes': 4.19.9
+    dev: false
+
+  /@uiw/codemirror-theme-okaidia/4.19.9:
+    resolution: {integrity: sha512-8NWKVbxQrBZc8jA5urwuzkdtotmCo60vvtRzjuq1jyVO+Rh2hyjE2oPbE+7H8qdZRsU+JqGZgEe9Y4Vm/3hlSA==}
+    dependencies:
+      '@uiw/codemirror-themes': 4.19.9
+    dev: false
+
+  /@uiw/codemirror-theme-solarized/4.19.9:
+    resolution: {integrity: sha512-Z7uAxxDK0ZICnQmjoMvAqTAhdALG5v8CNmpNsvZZ5qr3bgtPw7N97fvCXXCqzjINOYZIETNVmps/+YwUd0lyyg==}
+    dependencies:
+      '@uiw/codemirror-themes': 4.19.9
+    dev: false
+
+  /@uiw/codemirror-theme-sublime/4.19.9:
+    resolution: {integrity: sha512-u6BtA0jt1bsIK2tBAHr7YF4ZbkW7sEkoHAGgNqjnkYUsSyyvtKliv3AERRKM5WYFJ5npw1mxytpYQ61piUns5Q==}
+    dependencies:
+      '@uiw/codemirror-themes': 4.19.9
+    dev: false
+
+  /@uiw/codemirror-theme-tokyo-night-day/4.19.9:
+    resolution: {integrity: sha512-6I/+M31SeNHAh1sAQvyUFKH0NbWI7GKQ1ng8Hm9DQJ/t654tUtYtdZlAF4Mn+mwdRLJjkYhok5fxVBgs40NXTA==}
+    dependencies:
+      '@uiw/codemirror-themes': 4.19.9
+    dev: false
+
+  /@uiw/codemirror-theme-tokyo-night-storm/4.19.9:
+    resolution: {integrity: sha512-iBim76h4VgnwIbGWssJnMrfTlPCjXh/BqgMm/mc3GmSu2z+SXcAEzW7NC4Iui85obpMVRo7G/8AvkBF5EVUFmg==}
+    dependencies:
+      '@uiw/codemirror-themes': 4.19.9
+    dev: false
+
+  /@uiw/codemirror-theme-tokyo-night/4.19.9:
+    resolution: {integrity: sha512-AWxY2dIJSwXGSu/kgnb5/kDyjX6fYgJrt6e8FKszGf7V/ctgE/eA1lJhDAXqbErC9tx25XDkS+oE7dyoOtZ9Ag==}
+    dependencies:
+      '@uiw/codemirror-themes': 4.19.9
+    dev: false
+
+  /@uiw/codemirror-theme-vscode/4.19.9:
+    resolution: {integrity: sha512-cpj40KO+O3mqIe8GmkWGlfo+ltA/72v+kWVZA4QoOK/DfuNGL4mAXZWFjxSvbSI6BmJZISKpKL23mIOpRmy1Zw==}
+    dependencies:
+      '@uiw/codemirror-themes': 4.19.9
+    dev: false
+
+  /@uiw/codemirror-theme-xcode/4.19.9:
+    resolution: {integrity: sha512-3oF2nrC9ef2Um/9yLSRDM9YTco58kePhiTtyaOt+Ly6SzEnGLfughRk1Aam4JLMqwXYRIhu0cLiqK0OIJZDLkw==}
+    dependencies:
+      '@uiw/codemirror-themes': 4.19.9
+    dev: false
+
+  /@uiw/codemirror-themes-all/4.19.9:
+    resolution: {integrity: sha512-/Id11RqhYEz40W3skdcQvgJsZgO6mJc27cwjL2I+EC4jtSSo9MrJruYlN+wRDt/+jASMSWbw/Z4oJsgueAm3dA==}
+    dependencies:
+      '@uiw/codemirror-theme-abcdef': 4.19.9
+      '@uiw/codemirror-theme-androidstudio': 4.19.9
+      '@uiw/codemirror-theme-atomone': 4.19.9
+      '@uiw/codemirror-theme-aura': 4.19.9
+      '@uiw/codemirror-theme-bbedit': 4.19.9
+      '@uiw/codemirror-theme-bespin': 4.19.9
+      '@uiw/codemirror-theme-darcula': 4.19.9
+      '@uiw/codemirror-theme-dracula': 4.19.9
+      '@uiw/codemirror-theme-duotone': 4.19.9
+      '@uiw/codemirror-theme-eclipse': 4.19.9
+      '@uiw/codemirror-theme-github': 4.19.9
+      '@uiw/codemirror-theme-gruvbox-dark': 4.19.9
+      '@uiw/codemirror-theme-material': 4.19.9
+      '@uiw/codemirror-theme-noctis-lilac': 4.19.9
+      '@uiw/codemirror-theme-nord': 4.19.9
+      '@uiw/codemirror-theme-okaidia': 4.19.9
+      '@uiw/codemirror-theme-solarized': 4.19.9
+      '@uiw/codemirror-theme-sublime': 4.19.9
+      '@uiw/codemirror-theme-tokyo-night': 4.19.9
+      '@uiw/codemirror-theme-tokyo-night-day': 4.19.9
+      '@uiw/codemirror-theme-tokyo-night-storm': 4.19.9
+      '@uiw/codemirror-theme-vscode': 4.19.9
+      '@uiw/codemirror-theme-xcode': 4.19.9
+      '@uiw/codemirror-themes': 4.19.9
+    dev: false
+
+  /@uiw/codemirror-themes/4.19.9:
+    resolution: {integrity: sha512-PH3hl1w42z7GXe/zoD9gSadOGBWyKPl7vHm/8V1PUuHXT21+neyfRc7v0xPwb05pGP6ExfbmPi78y4+g6cHopg==}
+    dependencies:
+      '@codemirror/language': 6.6.0
       '@codemirror/state': 6.2.0
       '@codemirror/view': 6.8.1
     dev: false

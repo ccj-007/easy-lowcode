@@ -3,7 +3,7 @@ import { Routes, Route, Outlet } from "react-router";
 import { BrowserRouter } from "react-router-dom";
 import './App.css'
 import { Navbar, CompBar, Editor, Main, MainPreview } from "./layout";
-import _ from "lodash";
+import _, { cloneDeep } from "lodash";
 export const Context = React.createContext<any>('')
 import json, { getCompId } from "./components/jsonObj";
 import Redirect from "./commonComp/Redirect";
@@ -94,7 +94,8 @@ function App() {
     }
   }, [])
   React.useEffect(() => {
-    const code = getFileCodeTree(globalObj)
+    const code = getFileCodeTree(globalObj, { langs: 'react' })
+    console.log("codeObj111111", code);
     setCodeObj(code)
   }, [globalObj])
 
@@ -127,6 +128,7 @@ function App() {
       setRenderPC,
       //code
       codeObj,
+      setCodeObj
     }}>
       <div className="App">
         <BrowserRouter>

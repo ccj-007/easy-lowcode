@@ -1,23 +1,19 @@
-import React, { useRef, useEffect, useContext } from 'react'
-import CodeMirror from '@uiw/react-codemirror';
-import { javascript } from '@codemirror/lang-javascript';
+import React, { useState, useEffect } from 'react'
+import CodeMirrorWarp from "./CodeMirrorWarp";
+import { getFileCodeTree } from "../outScan/index";
+import { useCtx } from "../hooks";
 
-import { Context } from "../App";
 type Props = {}
 
 const JsonView = (props: Props) => {
-  const ctx = useContext(Context)
-  const { codeObj } = ctx
+  const { codeObj } = useCtx()
 
   return (
     <>
       {
         codeObj && codeObj.root &&
-        <CodeMirror
-          className='jsonView'
-          theme='light'
-          value={JSON.stringify(codeObj.root[0]['App.js'], null, '\t')}
-          extensions={[javascript()]}
+        < CodeMirrorWarp
+          data={codeObj.root[0]['App.js']}
         />
       }
     </>

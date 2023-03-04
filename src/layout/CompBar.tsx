@@ -70,7 +70,6 @@ const CompBar = (props: Props) => {
       <div className='sub-title'>源码预览</div>
       <button onClick={handleDownload}>下载源码</button>
       <CodeView></CodeView>
-
     </div >
   )
 }
