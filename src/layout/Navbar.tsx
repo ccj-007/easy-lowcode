@@ -5,7 +5,7 @@ type Props = {
 }
 const Navbar = (props: Props) => {
   const navigate = useNavigate()
-  const { setPreview, preview, renderPC, setRenderPC, globalObj, saveGlobalObj, codeObj } = useCtx()
+  const { setPreview, preview, renderPC, setRenderPC, globalObj, saveGlobalObj, codeObj, order, setOrder } = useCtx()
 
   const handlePreview = () => {
     preview ? navigate('/edit') : navigate('/preview')
@@ -14,6 +14,10 @@ const Navbar = (props: Props) => {
 
   const handleRenderPC = () => {
     setRenderPC(!renderPC)
+  }
+
+  const handleOrder = () => {
+    setOrder(!order)
   }
 
   const handleSave = () => {
@@ -31,15 +35,18 @@ const Navbar = (props: Props) => {
 
   return (
     <div className='navbar'>
-      <div className="main-title">Easy-Lowcode</div>
+      <div className="main-title">Easy-Lowcode 可视化编辑器</div>
       <div className='navbar-content'>
-        <button className="navbar-item" onClick={handlePreview}>
+        <button className="navbar-btn btn" onClick={handleOrder}>
+          {order ? '拖拽' : '编排'}
+        </button>
+        <button className="navbar-btn btn" onClick={handlePreview}>
           {preview ? '编辑' : '预览'}
         </button>
-        <button className="navbar-item" onClick={handleRenderPC}>
+        <button className="navbar-btn btn" onClick={handleRenderPC}>
           {renderPC ? 'H5' : 'PC'}
         </button>
-        <button className="navbar-item" onClick={handleSave}>
+        <button className="navbar-btn btn" onClick={handleSave}>
           保存
         </button>
       </div>

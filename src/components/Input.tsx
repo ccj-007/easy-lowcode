@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { FC } from 'react'
 
 type Props = {
   data?: any,
   id?: string
 }
 
-const Input = (props: Props) => {
+const Input: FC = (props: Props) => {
   const { data, id } = props
 
   return (

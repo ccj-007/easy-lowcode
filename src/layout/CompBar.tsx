@@ -4,14 +4,18 @@ import Comps from '../components'
 import json from '../components/jsonObj'
 import JsonView from "../view/JsonView";
 import CodeView from "../view/CodeView";
+import Button from '../components/Button'
 
 type Props = {
   style: React.CSSProperties
   className: string
 }
 
+
+
 const CompBar = (props: Props) => {
   const ctx = useContext(Context)
+  const [activePanelId, setActivePanelId] = useState('0')
   const { addGlobalObj } = ctx
 
   const handleDragEnd = (e: any) => {
@@ -49,27 +53,68 @@ const CompBar = (props: Props) => {
     })
   }
 
+  const togglePanel = (k) => {
+    setActivePanelId(k)
+  }
+
+  const PANEL_MAP = {
+    '0': {
+      title: '物料', jsx: () => {
+        return <div>
+          {
+            Object.entries(Comps).map(([CompName, Comp], index) => {
+              return (
+                <>
+                  <div className="sub-title">{CompName}</div>
+                  <div className='comp-drag-warp'
+                    onDragEnd={(e) => handleDragEnd(e)} onClick={handleClick} data-name={CompName} draggable>
+                    <Comp key={CompName}></Comp>
+                  </div>
+                </>
+              )
+            })
+          }
+        </div>
+      }
+    },
+    '1': {
+      title: '预览', jsx: () => {
+        return <div>
+          <JsonView></JsonView>
+        </div>
+      }
+    },
+    '2': {
+      title: '源码', jsx: () => {
+        return <div>
+          <button onClick={handleDownload} className='e-button'>下载源码</button>
+          <br></br>
+          <br></br>
+          <CodeView></CodeView>
+        </div >
+      }
+    },
+  }
+
   return (
     <div {...props}>
-      <div className="main-title">物料区</div>
-      {
-        Object.entries(Comps).map(([CompName, Comp], index) => {
-          return (
-            <>
-              <div className="sub-title">{CompName}</div>
-              <div className='comp-drag-warp'
-                onDragEnd={(e) => handleDragEnd(e)} onClick={handleClick} data-name={CompName} draggable>
-                <Comp key={CompName}></Comp>
+      <div className='comp-panels flex-center-between'>
+        {
+          Object.entries(PANEL_MAP).map(([k, panel], index) => {
+            return <div key={k} onClick={() => togglePanel(k)}>
+              <div className="main-title" >
+                <div className={activePanelId === k ? 'title-active' : ''}>{panel.title}</div>
+                {
+                  Object.entries(PANEL_MAP).length - 1 !== index && <div className='line-gap'></div>
+                }
               </div>
-            </>
-          )
-        })
+            </div>
+          })
+        }
+      </div>
+      {
+        PANEL_MAP[activePanelId].jsx()
       }
-      <div className='sub-title'>JSON编辑预览</div>
-      <JsonView></JsonView>
-      <div className='sub-title'>源码预览</div>
-      <button onClick={handleDownload}>下载源码</button>
-      <CodeView></CodeView>
     </div >
   )
 }

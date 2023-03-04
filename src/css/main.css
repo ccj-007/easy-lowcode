@@ -1,0 +1,170 @@
+.navbar {
+  position: fixed;
+  height: 50px;
+  background: #fff;
+  width: 100vw;
+  padding: 0 10px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-content {
+  padding-right: 10px;
+  display: flex;
+  cursor: pointer;
+}
+
+.navbar-btn {
+  height: 30px;
+  padding: 0px 15px;
+}
+
+.tools-btn {
+  height: 20px;
+  padding: 0px 5px;
+}
+
+.navbar-btn:hover,
+.tools-btn:hover {
+  background: var(--btn-bg-color);
+  box-shadow: var(--btn-shadow-active);
+  border: 1px solid var(--btn-bg-color);
+  cursor: pointer;
+  color: #fff;
+}
+
+.layout-main {
+  padding-top: 50px;
+  width: 100vw;
+  display: flex;
+}
+
+.layout-main-mid {
+  position: relative;
+  box-shadow: 0px 0px 20px 10px var(--shadow-color) inset;
+  padding: 10px;
+  background: rgba(235, 235, 235, 0.436);
+}
+
+.layout-mid-tools {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #fff;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--border-light);
+  padding: 10px;
+  transition: 1s all linear;
+}
+
+.layout-mid-content {
+  padding-top: 90px;
+}
+
+.layout-base {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 50px);
+  border: 1px solid var(--border-light);
+  padding: 10px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  transition: .2s all linear;
+}
+
+.layout-expand-btn-left {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 40px;
+  border-radius: 0px 4px 4px 0px;
+  background: #fff;
+}
+
+.layout-expand-btn-right {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 40px;
+  border-radius: 4px 0 0 4px;
+  background: #fff;
+}
+
+
+.san-left {
+  border: 4px solid transparent;
+  border-right: 4px solid var(--border-mid);
+  position: relative;
+  left: -2px;
+}
+
+.san {
+  cursor: pointer;
+}
+
+.san-left:hover {
+  border-right: 4px solid var(--border-primary);
+}
+
+.san-right:hover {
+  border-left: 4px solid var(--border-primary);
+}
+
+.san-right {
+  border: 4px solid transparent;
+  border-left: 4px solid var(--border-mid);
+  position: relative;
+  left: 2px;
+}
+
+.comp-edit-active {
+  border: 1px solid var(--border-primary);
+}
+
+.comp-panels {
+  width: 150px;
+  position: relative;
+  flex-wrap: nowrap;
+}
+
+.comp-panels-active {
+  border-bottom: 1px solid var(--border-primary);
+}
+
+.line-gap {
+  position: absolute;
+  top: 5px;
+  right: -15px;
+  background: rgb(205, 205, 205);
+  width: 1px;
+  height: 10px;
+}
+
+.tools {
+  width: 100%;
+  display: flex;
+  font-size: 12px;
+}
+
+.tools-item {
+  padding: 5px 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cm-scroller {
+  height: 100vh !important;
+}
+
+.edit-item {
+  margin-bottom: 10px;
+}

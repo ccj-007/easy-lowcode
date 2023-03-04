@@ -1,0 +1,12 @@
+:root {
+  --btn-bg-color: #2468f2;
+  --btn-shadow: 0px 4px 10px 0px #dedede;
+  --btn-shadow-active: 0px 4px 10px 0px #2468f2;
+  --shadow-color: #e6e6e6;
+  --border-light: #f1f1f1;
+  --border-mid: #d7d7d7;
+  --border-dark: #5d5d5d;
+  --border-primary: #2468f2;
+  --text-gray-light: #cdcdcd;
+  --text-primary: #2468f2;
+}

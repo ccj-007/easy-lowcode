@@ -2,7 +2,6 @@ const router = require('koa-router')()
 const fs = require('fs')
 const path = require('path')
 const prettier = require('prettier')
-const http = require('http')
 
 let codeTree = {}
 const dir = path.join(__dirname, '../public/App.js')

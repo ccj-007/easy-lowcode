@@ -17,7 +17,7 @@ const Input = (props: Props) => {
     editGlobalObj(target, value)
   }
   return (
-    <input placeholder='请输入你的数据' onChange={handleChange} {...data} />
+    <input placeholder='请输入你的数据' className='e-input' onChange={handleChange} {...data} />
   )
 }
 

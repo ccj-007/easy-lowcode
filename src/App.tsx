@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Routes, Route, Outlet } from "react-router";
 import { BrowserRouter } from "react-router-dom";
-import './App.css'
 import { Navbar, CompBar, Editor, Main, MainPreview } from "./layout";
 import _, { cloneDeep } from "lodash";
 export const Context = React.createContext<any>('')
@@ -39,6 +38,11 @@ function App() {
   const [activeEditId, setActiveEditId] = useState(null)
   const [preview, setPreview] = useState(false)
   const [renderPC, setRenderPC] = useState(true)
+  const [order, setOrder] = useState(false)
+  const [layout, setLayout] = useState({
+    sidebarWidth: 25,
+    editWidth: 20,
+  })
 
   const addGlobalObj = (data: any) => {
     if (!data && typeof data !== 'object') return
@@ -86,6 +90,10 @@ function App() {
     return [null, null]
   }, [activeEditId])
 
+  const contentWidth = React.useMemo(() => {
+    return (100 - layout.editWidth - layout.sidebarWidth)
+  }, [layout])
+
   React.useEffect(() => {
     //默认选中
     if (globalObj.content.length > 0) {
@@ -93,9 +101,9 @@ function App() {
       setActiveCompId(comp.id)
     }
   }, [])
+
   React.useEffect(() => {
     const code = getFileCodeTree(globalObj, { langs: 'react' })
-    console.log("codeObj111111", code);
     setCodeObj(code)
   }, [globalObj])
 
@@ -126,9 +134,15 @@ function App() {
       //默认渲染PC
       renderPC,
       setRenderPC,
+      //编排
+      order,
+      setOrder,
       //code
       codeObj,
-      setCodeObj
+      setCodeObj,
+      //布局
+      layout,
+      setLayout
     }}>
       <div className="App">
         <BrowserRouter>
@@ -140,12 +154,12 @@ function App() {
             />
             <Route element={
               <div className='layout-main'>
-                <CompBar className='layout-base' style={{ width: '20vw' }} ></CompBar>
+                <CompBar className='layout-base ' style={{ width: layout.sidebarWidth + 'vw', padding: layout.sidebarWidth ? '10px' : '0' }} ></CompBar>
                 <Outlet></Outlet>
-                <Editor className='layout-base' style={{ width: '20vw' }}></Editor>
+                <Editor className='layout-base ' style={{ width: layout.editWidth + 'vw', padding: layout.editWidth ? '10px' : '0' }}></Editor>
               </div>
             } path="/" >
-              <Route element={<Main Main className='layout-base' style={{ width: '60vw' }} ref={mainRef} ></Main>}
+              <Route element={<Main Main className='layout-base' style={{ width: contentWidth + 'vw' }} ref={mainRef} ></Main>}
                 path="/edit"
               ></Route>
               <Route element={<MainPreview className='layout-base' ref={mainRef} style={{ width: '60vw' }}>我是预览的</MainPreview>}

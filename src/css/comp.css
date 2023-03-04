@@ -1,0 +1,42 @@
+.e-button {
+  background: #fff;
+  border: 1px solid #e7e7e7;
+  margin-right: 10px;
+  border-radius: 4px;
+  box-shadow: var(--btn-shadow);
+  transition: 0.2s box-shadow linear;
+  cursor: pointer;
+  padding: 0px 15px;
+  cursor: pointer;
+  height: 30px;
+  white-space: nowrap;
+}
+
+.e-button:hover {
+  background: var(--btn-bg-color);
+  box-shadow: var(--btn-shadow-active);
+  border: 1px solid var(--btn-bg-color);
+  color: #fff;
+}
+
+::-webkit-input-placeholder {
+  color: var(--text-gray-light);
+}
+
+.e-input {
+  box-shadow: var(--btn-shadow);
+  background: #fff;
+  border: 1px solid var(--border-mid);
+  text-decoration: none;
+  transition: 0.2s box-shadow linear;
+  outline: none;
+  color: #125c9b;
+  border-radius: 2px;
+  height: 25px;
+  margin: 10px 0;
+}
+
+.e-input:hover {
+  box-shadow: var(--btn-shadow-active);
+  border: 1px solid var(--btn-bg-color);
+}

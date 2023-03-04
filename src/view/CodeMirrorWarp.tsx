@@ -15,7 +15,6 @@ const CodeMirrorWarp = (props: Props) => {
     <>
       {
         <CodeMirror
-          className='jsonView'
           theme={tokyoNightStorm}
           value={data}
           extensions={[langs.tsx(), langs.javascript(), langs.json(), basicSetup({

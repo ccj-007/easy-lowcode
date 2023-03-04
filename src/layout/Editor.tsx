@@ -8,11 +8,11 @@ type Props = {
 
 const Editor = (props: Props) => {
   const ctx = useContext(Context)
-  const { activeCompId, globalObj, compName, setActiveEditId, editObj } = ctx
+  const { compName, setActiveEditId, editObj } = ctx
 
   return (
     <div {...props}>
-      <div className="main-title">编辑区</div>
+      <div className="main-title">编辑</div>
       {
         compName && editObj[compName].map((editItem: any) => {
           return Object.entries(editorComps).map(([name, EditorComp], index) => {

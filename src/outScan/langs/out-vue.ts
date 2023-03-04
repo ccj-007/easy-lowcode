@@ -2,7 +2,7 @@
  * 模板暂时用的react
  */
 const COMPONENTS_TREE = {
-'Button': `<div id={{id}}><button>{{children}}</button></div>`
+'Button': `<div id={{id}} className='e-button'><button>{{children}}</button></div>`,
 }   
 
 const FILE_TREE = {

@@ -12,7 +12,7 @@ type Props = {
 }
 
 const Main = React.forwardRef((props: Props | any, ref) => {
-  const { activeCompId, setActiveCompId, saveGlobalObj, globalObj, renderPC, setGlobalObj } = useCtx()
+  const { activeCompId, setActiveCompId, saveGlobalObj, globalObj, renderPC, setGlobalObj, order, layout, setLayout } = useCtx()
   const prevY = useRef(0)
   const prevId = useRef('')
 
@@ -34,17 +34,14 @@ const Main = React.forwardRef((props: Props | any, ref) => {
 
   const handleDragOver = (e: DragEvent) => {
     const y = e.clientY
-    //@ts-ignore
-    const id = e.target ? e.target.id : ''
+    const id = (e.target as HTMLElement).id
     let isChange = false
     let direction = (y - prevY.current) > 0 ? 'down' : 'up'
     isChange = !(id === prevId.current)
     prevY.current = e.clientY
     prevId.current = id
-    //拖拽状态改变
     if (isChange && direction) {
-      endDragId.current = e.target.id
-      //交换
+      endDragId.current = (e.target as HTMLElement).id
       const newData = _.cloneDeep(globalObj)
       const content = newData.content
       if (content.length) {
@@ -59,10 +56,19 @@ const Main = React.forwardRef((props: Props | any, ref) => {
     }
   }
   const handleDragStart = (e: DragEvent) => {
-    startDragId.current = e.target.id
+    startDragId.current = (e.target as HTMLElement).id
   }
 
   const throttleDragOver = utils.throttle(handleDragOver, 100)
+
+  const handleLayout = (data: 'left' | 'right') => {
+    if (data === 'left') {
+      setLayout(Object.assign({}, layout, { sidebarWidth: layout.sidebarWidth ? 0 : 25 }))
+    }
+    if (data === 'right') {
+      setLayout(Object.assign({}, layout, { editWidth: layout.editWidth ? 0 : 20 }))
+    }
+  }
 
   const renderMainView = () => {
     return (globalObj.content).map((json: any, contentIndex: number) => {
@@ -76,25 +82,40 @@ const Main = React.forwardRef((props: Props | any, ref) => {
     })
   }
   return (
-    <div {...props} ref={ref}>
-      <div className="main-title">主舞台</div>
-      <div className='tools'>
-        <div className="tools-item tools-up" onClick={editUp}>上移</div>
-        <div className="tools-item tools-down" onClick={editDown}>下移</div>
-        <div className="tools-item tools-clear" onClick={clearJSON}>上选</div>
-        <div className="tools-item tools-clear" onClick={clearJSON}>下选</div>
-        <div className="tools-item tools-del" onClick={editDel}>删除</div>
-        <div className="tools-item tools-clear" onClick={clearJSON}>清空</div>
-        <div className="tools-item tools-clear" onClick={clearJSON}>复制</div>
-        <div className="tools-item tools-clear" onClick={clearJSON}>粘贴</div>
-        <div className="tools-item tools-clear" onClick={clearJSON}>更换</div>
-        <div className="tools-item tools-clear" onClick={clearJSON}>多选</div>
+    <div {...props} ref={ref} className="layout-main-mid">
+      <div className="layout-mid-tools" >
+        <div className="main-title">页面</div>
+        {
+          order && <div className='tools'>
+            <div className="tools-item tools-up btn tools-btn" onClick={editUp}>上移</div>
+            <div className="tools-item tools-down btn tools-btn" onClick={editDown}>下移</div>
+            <div className="tools-item tools-clear btn tools-btn" onClick={clearJSON}>上选</div>
+            <div className="tools-item tools-clear btn tools-btn" onClick={clearJSON}>下选</div>
+            <div className="tools-item tools-del btn tools-btn" onClick={editDel}>删除</div>
+            <div className="tools-item tools-clear btn tools-btn" onClick={clearJSON}>清空</div>
+            <div className="tools-item tools-clear btn tools-btn" onClick={clearJSON}>复制</div>
+            <div className="tools-item tools-clear btn tools-btn" onClick={clearJSON}>粘贴</div>
+            <div className="tools-item tools-clear btn tools-btn" onClick={clearJSON}>更换</div>
+            <div className="tools-item tools-clear btn tools-btn" onClick={clearJSON}>多选</div>
+          </div>
+        }
       </div>
-      {
-        renderPC ? renderMainView() : <MobileView>
-          {renderMainView()}
-        </MobileView>
-      }
+      <div className='layout-mid-content' style={{ 'paddingTop': order ? '80px' : '50px' }}>
+        {
+          renderPC ? renderMainView() : <MobileView>
+            {renderMainView()}
+          </MobileView>
+        }
+        {/* 辅助按钮 */}
+        <div className='layout-expand-btn-left flex-center' onClick={() => handleLayout('left')}>
+          <div className={`san ${layout.sidebarWidth ? 'san-left' : 'san-right'}`}></div>
+        </div>
+        <div className='layout-expand-btn-right flex-center'>
+          <div className={`san ${layout.editWidth ? 'san-right' : 'san-left'}`} onClick={() => {
+            handleLayout('right')
+          }}></div>
+        </div>
+      </div>
     </div >
   )
 })
