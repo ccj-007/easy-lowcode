@@ -5,7 +5,7 @@ type Props = {
 }
 const Navbar = (props: Props) => {
   const navigate = useNavigate()
-  const { setPreview, preview, renderPC, setRenderPC, globalObj, saveGlobalObj, codeObj, order, setOrder } = useCtx()
+  const { setPreview, preview, renderPC, setRenderPC, globalObj, saveGlobalObj, codeObj, order, setOrder, isIframe, setIframe } = useCtx()
 
   const handlePreview = () => {
     preview ? navigate('/edit') : navigate('/preview')
@@ -18,6 +18,11 @@ const Navbar = (props: Props) => {
 
   const handleOrder = () => {
     setOrder(!order)
+  }
+
+  const handleIframe = () => {
+    setIframe(!isIframe)
+    alert('这里需要单独做editor的拖拽包来处理render解析的iframe页面，通过postmessage通信， 目前无法使用')
   }
 
   const handleSave = () => {
@@ -37,6 +42,9 @@ const Navbar = (props: Props) => {
     <div className='navbar'>
       <div className="main-title">Easy-Lowcode 可视化编辑器</div>
       <div className='navbar-content'>
+        <button className="navbar-btn btn" onClick={handleIframe}>
+          {isIframe ? '默认加载' : 'iframe加载'}
+        </button>
         <button className="navbar-btn btn" onClick={handleOrder}>
           {order ? '拖拽' : '编排'}
         </button>

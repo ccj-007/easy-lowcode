@@ -39,6 +39,7 @@ function App() {
   const [preview, setPreview] = useState(false)
   const [renderPC, setRenderPC] = useState(true)
   const [order, setOrder] = useState(false)
+  const [isIframe, setIframe] = useState(false)
   const [layout, setLayout] = useState({
     sidebarWidth: 25,
     editWidth: 20,
@@ -105,6 +106,14 @@ function App() {
   React.useEffect(() => {
     const code = getFileCodeTree(globalObj, { langs: 'react' })
     setCodeObj(code)
+
+    if (isIframe) {
+      let iframe = document.getElementsByTagName('iframe')[0] as any
+      iframe.contentWindow.postMessage({ json: globalObj }, "*")
+      // window.addEventListener('message', function (event) {
+      //   console.log("我是iframe父亲", event);
+      // }, false);
+    }
   }, [globalObj])
 
   return (
@@ -142,7 +151,10 @@ function App() {
       setCodeObj,
       //布局
       layout,
-      setLayout
+      setLayout,
+      //iframe
+      isIframe,
+      setIframe
     }}>
       <div className="App">
         <BrowserRouter>

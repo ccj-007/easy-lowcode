@@ -18,7 +18,7 @@
   <link rel="stylesheet" href="/renderer/style.css">
   <script type="module">
     import Renderer from '/renderer/index.js'
-    const json = {
+    let json = {
       "type": "page",
       "title": "默认标题",
       "routeName": "default",
@@ -45,7 +45,20 @@
       ]
     }
     const App = document.getElementById('app');
-    ReactDOM.render(Renderer({ jsonObj: json }), App);
+
+    window.addEventListener("message", receiveMessage, false);
+
+    function receiveMessage (event) {
+      console.log("我是iframe", event);
+      json = event.data.json
+      render()
+    }
+    function render () {
+      ReactDOM.render(Renderer({ jsonObj: json }), App);
+    }
+
+    render()
+
   </script>
 </body>
 

@@ -13,7 +13,7 @@ type Props = {
 }
 
 const Main = React.forwardRef((props: Props | any, ref) => {
-  const { activeCompId, setActiveCompId, saveGlobalObj, globalObj, renderPC, setGlobalObj, order, layout, setLayout } = useCtx()
+  const { activeCompId, setActiveCompId, saveGlobalObj, globalObj, renderPC, setGlobalObj, order, layout, setLayout, isIframe } = useCtx()
   const prevY = useRef(0)
   const prevId = useRef('')
 
@@ -71,6 +71,9 @@ const Main = React.forwardRef((props: Props | any, ref) => {
     }
   }
 
+  /**
+   * 渲染区域
+   */
   const renderMainView = () => {
     return (globalObj.content).map((json: CompUnion, contentIndex: number) => {
       return Object.entries(Comps).map(([name, Comp], CompIndex) => {
@@ -81,6 +84,7 @@ const Main = React.forwardRef((props: Props | any, ref) => {
           </div> : <></>
       })
     })
+
   }
   return (
     <div {...props} ref={ref} className="layout-main-mid">
@@ -102,10 +106,17 @@ const Main = React.forwardRef((props: Props | any, ref) => {
         }
       </div>
       <div className='layout-mid-content' style={{ 'paddingTop': order ? '80px' : '50px' }}>
+
         {
-          renderPC ? renderMainView() : <MobileView>
-            {renderMainView()}
-          </MobileView>
+          isIframe ?
+            // iframe加载与编辑器解耦
+            <iframe src="http://127.0.0.1:5500/sdk.html" frameBorder="0" width={'100%'} height={'100%'}></iframe>
+            :
+            // 非iframe加载，存在隔离问题
+            renderPC ? renderMainView()
+              : <MobileView>
+                {renderMainView()}
+              </MobileView>
         }
         {/* 辅助按钮 */}
         <div className='layout-expand-btn-left flex-center' onClick={() => handleLayout('left')}>
