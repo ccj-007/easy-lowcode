@@ -34,7 +34,7 @@ function App() {
   const [editObj, setEditObj] = useState<any>(getJSON('edit_json') || editJSON)
   const [codeObj, setCodeObj] = useState({})
 
-  const [activeCompId, setActiveCompId] = useState(null)
+  const [activeCompId, setActiveCompId] = useState<null | string>(null)
   const [activeEditId, setActiveEditId] = useState(null)
   const [preview, setPreview] = useState(false)
   const [renderPC, setRenderPC] = useState(true)
@@ -47,7 +47,7 @@ function App() {
   const addGlobalObj = (data: any) => {
     if (!data && typeof data !== 'object') return
     let newGlobalObj = _.cloneDeep(globalObj)
-    newGlobalObj.content = newGlobalObj.content.filter(item => item)
+    newGlobalObj.content = newGlobalObj.content.filter((item: any) => item)
     const id = getCompId()
     data.id = id
     newGlobalObj.content.push(data)

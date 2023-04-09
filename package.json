@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "renderer": "cross-env NODE_ENV=renderer  vite build",
     "server": "nodemon ./server/App.cjs",
     "build": "tsc && vite build",
     "preview": "vite preview"
@@ -21,6 +22,7 @@
     "@uiw/codemirror-themes-all": "^4.19.9",
     "@uiw/react-codemirror": "^4.19.8",
     "classnames": "^2.3.2",
+    "cross-env": "^7.0.3",
     "handlebars": "^4.7.7",
     "koa": "^2.14.1",
     "koa-bodyparser": "^4.3.0",

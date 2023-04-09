@@ -5,6 +5,7 @@ import Comps from '../components'
 import MobileView from "../view/MobileView";
 import utils from "../utils";
 import _ from "lodash";
+import { CompUnion } from '../types'
 
 type Props = {
   style: React.CSSProperties
@@ -71,9 +72,9 @@ const Main = React.forwardRef((props: Props | any, ref) => {
   }
 
   const renderMainView = () => {
-    return (globalObj.content).map((json: any, contentIndex: number) => {
+    return (globalObj.content).map((json: CompUnion, contentIndex: number) => {
       return Object.entries(Comps).map(([name, Comp], CompIndex) => {
-        return json && json.componentName && name === json.componentName ?
+        return name === json.componentName ?
           <div className={activeCompId === json.id ? 'comp-edit-active' : ''} onClick={() => setActiveCompId(json.id)} onDragOver={throttleDragOver} onDragStart={handleDragStart} id={json.id}
             draggable>
             <Comp key={json.id} data={json.data} id={json.id} />

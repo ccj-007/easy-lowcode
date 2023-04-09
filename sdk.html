@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script>
+    var process = { env: { NODE_ENV: "development" } }
+  </script>
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <link rel="stylesheet" href="/renderer/style.css">
+  <script type="module">
+    import Renderer from '/renderer/index.js'
+    const json = {
+      "type": "page",
+      "title": "默认标题",
+      "routeName": "default",
+      "initApi": "",
+      "content": [
+        {
+          "componentName": "Input",
+          "id": "comp_b3b410e4-45ec-4404-9178-d0ef071254ec",
+          "data": {
+            "placeholder": "请输入",
+            "style": {
+              "display": "block"
+            },
+            "type": ""
+          }
+        },
+        {
+          "componentName": "Button",
+          "id": "comp_c1112876-14f3-4ca1-999d-7ea9f4a1e0e7",
+          "data": {
+            "children": "确定"
+          }
+        }
+      ]
+    }
+    const App = document.getElementById('app');
+    ReactDOM.render(Renderer({ jsonObj: json }), App);
+  </script>
+</body>
+
+</html>

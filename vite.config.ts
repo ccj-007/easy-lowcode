@@ -1,7 +1,3 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import RendererConfig from './vite-renderer'
 
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react()],
-})
+export default RendererConfig
