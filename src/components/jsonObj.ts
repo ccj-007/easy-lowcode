@@ -16,8 +16,11 @@ const Button = {
   "data": {
   }
 }
-const json = {
+const jsonObj = {
   Input,
   Button
 }
-export default json
+
+export type JsonType = typeof jsonObj
+export type JsonKey = keyof JsonType
+export default jsonObj

@@ -154,19 +154,25 @@ function App() {
             />
             <Route element={
               <div className='layout-main'>
-                <CompBar className='layout-base ' style={{ width: layout.sidebarWidth + 'vw', padding: layout.sidebarWidth ? '10px' : '0' }} ></CompBar>
+                {/* 根路由——非预览状态可以编辑 */}
+                {
+                  !preview && <CompBar className='layout-base ' style={{ width: layout.sidebarWidth + 'vw', padding: layout.sidebarWidth ? '10px' : '0' }} ></CompBar>
+                }
                 <Outlet></Outlet>
-                <Editor className='layout-base ' style={{ width: layout.editWidth + 'vw', padding: layout.editWidth ? '10px' : '0' }}></Editor>
+                {
+                  !preview && <Editor className='layout-base ' style={{ width: layout.editWidth + 'vw', padding: layout.editWidth ? '10px' : '0' }}></Editor>
+                }
               </div>
             } path="/" >
+
+              {/* outlet嵌入组件 */}
               <Route element={<Main Main className='layout-base' style={{ width: contentWidth + 'vw' }} ref={mainRef} ></Main>}
                 path="/edit"
               ></Route>
-              <Route element={<MainPreview className='layout-base' ref={mainRef} style={{ width: '60vw' }}>我是预览的</MainPreview>}
+              <Route element={<MainPreview className='layout-base' ref={mainRef} style={{ width: '100vw' }}>我是预览的</MainPreview>}
                 path="/preview"
               ></Route>
             </Route>
-
           </Routes>
         </BrowserRouter>
       </div>

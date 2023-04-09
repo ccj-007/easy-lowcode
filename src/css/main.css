@@ -72,7 +72,6 @@
   padding: 10px;
   box-sizing: border-box;
   overflow-y: auto;
-  transition: .2s all linear;
 }
 
 .layout-expand-btn-left {

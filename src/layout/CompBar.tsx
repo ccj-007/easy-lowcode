@@ -1,17 +1,14 @@
 import React, { useState, useContext } from 'react'
 import { Context } from "../App";
 import Comps from '../components'
-import json from '../components/jsonObj'
+import json, { JsonKey } from '../components/jsonObj'
 import JsonView from "../view/JsonView";
 import CodeView from "../view/CodeView";
-import Button from '../components/Button'
 
 type Props = {
   style: React.CSSProperties
   className: string
 }
-
-
 
 const CompBar = (props: Props) => {
   const ctx = useContext(Context)
@@ -24,7 +21,7 @@ const CompBar = (props: Props) => {
 
     const { offsetTop, offsetLeft, offsetWidth } = mainRef
     if (clientX > offsetLeft && clientX < offsetLeft + offsetWidth && clientY > offsetTop) {
-      const CompName = (e.target as HTMLElement).getAttribute('data-name')
+      const CompName = (e.target as HTMLElement).getAttribute('data-name') as JsonKey
       CompName && json[CompName] && addGlobalObj(json[CompName])
     }
   }
