@@ -23,13 +23,7 @@ const Renderer: FC<RenderProps> = (props) => {
     })
   }
 
-  return (
-    <>
-      {
-        RenderView(jsonObj)
-      }
-    </>
-  )
+  return RenderView(jsonObj)
 }
 
 export default Renderer
