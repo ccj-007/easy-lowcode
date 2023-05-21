@@ -14,12 +14,20 @@ const MainPreview = React.forwardRef((props: Props | any, ref) => {
 
   const renderMainView = () => {
     return (globalObj.content).map((json: any, contentIndex: number) => {
-      return Object.entries(Comps).map(([name, Comp], CompIndex) => {
-        return name === json.componentName ?
-          <div className={activeCompId === json.id ? 'comp-edit-active' : ''} onClick={() => setActiveCompId(json.id)}>
-            <Comp key={json.id} data={json.data} />
-          </div> : <></>
-      })
+      return <div key={contentIndex}>
+        {
+          Object.entries(Comps).map(([name, Comp], CompIndex) => {
+            return <div key={CompIndex}>
+              {
+                name === json.componentName ?
+                  <div className={activeCompId === json.id ? 'comp-edit-active' : ''} onClick={() => setActiveCompId(json.id)}>
+                    <Comp key={json.id} data={json.data} />
+                  </div> : <></>
+              }
+            </div>
+          })
+        }
+      </div>
     })
   }
   return (

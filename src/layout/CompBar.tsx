@@ -61,13 +61,13 @@ const CompBar = (props: Props) => {
           {
             Object.entries(Comps).map(([CompName, Comp], index) => {
               return (
-                <>
+                <div key={index}>
                   <div className="sub-title">{CompName}</div>
                   <div className='comp-drag-warp'
                     onDragEnd={(e) => handleDragEnd(e)} onClick={handleClick} data-name={CompName} draggable>
                     <Comp key={CompName}></Comp>
                   </div>
-                </>
+                </div>
               )
             })
           }

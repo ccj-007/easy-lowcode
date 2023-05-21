@@ -179,7 +179,7 @@ function App() {
             } path="/" >
 
               {/* outlet嵌入组件 */}
-              <Route element={<Main Main className='layout-base' style={{ width: contentWidth + 'vw' }} ref={mainRef} ></Main>}
+              <Route element={<Main className='layout-base' style={{ width: contentWidth + 'vw' }} ref={mainRef} ></Main>}
                 path="/edit"
               ></Route>
               <Route element={<MainPreview className='layout-base' ref={mainRef} style={{ width: '100vw' }}>我是预览的</MainPreview>}
