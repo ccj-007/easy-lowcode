@@ -4,8 +4,10 @@ import { defaultGlobalObj } from "../App";
 import Comps from '../components'
 import MobileView from "../view/MobileView";
 import utils from "../utils";
-import _ from "lodash";
+import { produce } from 'immer'
 import { CompUnion } from '../types'
+import _ from 'lodash'
+import { getCompId } from "../components/jsonObj";
 
 type Props = {
   style: React.CSSProperties
@@ -20,19 +22,101 @@ const Main = React.forwardRef((props: Props | any, ref) => {
   const startDragId = useRef('')
   const endDragId = useRef('')
 
+  /**
+   * 上移
+   */
+  const editUp = () => {
+    const newObj = produce(globalObj, (draft) => {
+      const { content } = draft
+      let idx = content.findIndex(item => item.id === activeCompId)
+      if (idx >= 1) {
+        [content[idx - 1], content[idx]] = [content[idx], content[idx - 1]]
+      } else {
+        alert('组件已经在最顶层了')
+      }
+    })
+    setGlobalObj(newObj)
+  }
+  /**
+   * 下移
+   */
+  const editDown = () => {
+    const newObj = produce(globalObj, (draft) => {
+      const { content } = draft
+      let idx = content.findIndex(item => item.id === activeCompId)
+      if (idx < content.length - 1) {
+        [content[idx], content[idx + 1]] = [content[idx + 1], content[idx]]
+      } else {
+        alert('组件已经在最底层了')
+      }
+    })
+    setGlobalObj(newObj)
+  }
+  /**
+   * 上选
+   */
+  const selectUp = () => {
+    let idx = globalObj.content.findIndex(item => item.id === activeCompId)
+    if (idx >= 1) {
+      let id = globalObj.content[idx - 1].id
+      setActiveCompId(id)
+    } else {
+      alert('无法上选')
+    }
+  }
+  /**
+   * 下选
+   */
+  const selectDown = () => {
+    let idx = globalObj.content.findIndex(item => item.id === activeCompId)
+    if (idx + 1 <= globalObj.content.length - 1) {
+      let id = globalObj.content[idx + 1].id
+      setActiveCompId(id)
+    } else {
+      alert('无法下选')
+    }
+  }
+  /**
+   * 删除
+   */
+  const selectDel = () => {
+    const newObj = produce(globalObj, (draft) => {
+      let idx = draft.content.findIndex(item => item.id === activeCompId)
+      draft.content.splice(idx, 1)
+    })
+    setGlobalObj(newObj)
+  }
+  /**
+   * 清空
+   */
   const clearJSON = () => {
     saveGlobalObj(defaultGlobalObj)
   }
-  const editUp = () => {
-
+  /**
+   * 复制
+   */
+  const copy = () => {
+    const newObj = produce(globalObj, (draft) => {
+      let idx = draft.content.findIndex(item => item.id === activeCompId)
+      let copyItem = draft.content.find(item => item.id === activeCompId)
+      const newCopyItem = _.cloneDeep(copyItem)
+      newCopyItem.id = getCompId()
+      draft.content.splice(idx, 0, newCopyItem)
+    })
+    setGlobalObj(newObj)
   }
-  const editDown = () => {
-
+  /**
+   * 更换
+   */
+  const exchange = () => {
+    saveGlobalObj(defaultGlobalObj)
   }
-  const editDel = () => {
-    const newData = _.cloneDeep(globalObj)
+  /**
+  * 多选
+  */
+  const moreSelect = () => {
+    saveGlobalObj(defaultGlobalObj)
   }
-
   const handleDragOver = (e: DragEvent) => {
     const y = e.clientY
     const id = (e.target as HTMLElement).id
@@ -94,14 +178,13 @@ const Main = React.forwardRef((props: Props | any, ref) => {
           order && <div className='tools'>
             <div className="tools-item tools-up btn tools-btn" onClick={editUp}>上移</div>
             <div className="tools-item tools-down btn tools-btn" onClick={editDown}>下移</div>
-            <div className="tools-item tools-clear btn tools-btn" onClick={clearJSON}>上选</div>
-            <div className="tools-item tools-clear btn tools-btn" onClick={clearJSON}>下选</div>
-            <div className="tools-item tools-del btn tools-btn" onClick={editDel}>删除</div>
+            <div className="tools-item tools-clear btn tools-btn" onClick={selectUp}>上选</div>
+            <div className="tools-item tools-clear btn tools-btn" onClick={selectDown}>下选</div>
+            <div className="tools-item tools-del btn tools-btn" onClick={selectDel}>删除</div>
             <div className="tools-item tools-clear btn tools-btn" onClick={clearJSON}>清空</div>
-            <div className="tools-item tools-clear btn tools-btn" onClick={clearJSON}>复制</div>
-            <div className="tools-item tools-clear btn tools-btn" onClick={clearJSON}>粘贴</div>
-            <div className="tools-item tools-clear btn tools-btn" onClick={clearJSON}>更换</div>
-            <div className="tools-item tools-clear btn tools-btn" onClick={clearJSON}>多选</div>
+            <div className="tools-item tools-clear btn tools-btn" onClick={copy}>复制</div>
+            <div className="tools-item tools-clear btn tools-btn" onClick={exchange}>更换</div>
+            <div className="tools-item tools-clear btn tools-btn" onClick={moreSelect}>多选</div>
           </div>
         }
       </div>

@@ -40,7 +40,7 @@ const Navbar = (props: Props) => {
 
   return (
     <div className='navbar'>
-      <div className="main-title">Easy-Lowcode 可视化编辑器</div>
+      <div className="logo">Easy-Lowcode 可视化编辑器</div>
       <div className='navbar-content'>
         <button className="navbar-btn btn" onClick={handleIframe}>
           {isIframe ? '默认加载' : 'iframe加载'}

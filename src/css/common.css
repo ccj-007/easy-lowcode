@@ -22,6 +22,7 @@ html body {
   box-shadow: var(--btn-shadow);
   transition: 0.2s box-shadow linear;
   cursor: pointer;
+  align-items: center;
 }
 
 .layout-base::-webkit-scrollbar-thumb {
@@ -39,6 +40,8 @@ html body {
   align-items: center;
   justify-content: center;
 }
+
+
 
 .main-title {
   font-size: 14px;

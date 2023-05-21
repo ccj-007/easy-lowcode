@@ -38,7 +38,7 @@ function App() {
   const [activeEditId, setActiveEditId] = useState(null)
   const [preview, setPreview] = useState(false)
   const [renderPC, setRenderPC] = useState(true)
-  const [order, setOrder] = useState(false)
+  const [order, setOrder] = useState(true)
   const [isIframe, setIframe] = useState(false)
   const [layout, setLayout] = useState({
     sidebarWidth: 25,
@@ -56,6 +56,7 @@ function App() {
     saveJSON('global_json', newGlobalObj)
     id && setActiveCompId(id)
   }
+
   const editGlobalObj = (target: any, value: any) => {
     let newData = _.cloneDeep(globalObj)
     let selectComp = newData.content.find((item: any) => item.id === activeCompId)
