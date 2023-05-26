@@ -43,4 +43,4 @@ pnpm run server
 pnpm renderer   // 生成sdk
 ```
 
-画布区的iframe是为了与编辑器解耦实现隔绝的上下文。生成sdk后，我们可以在sdk.html中通过liveServer插件快速预览页面，然后在options.ts修改对应iframeURL，在编辑器的navbar切换iframe加载。
+画布区的iframe是为了与编辑器解耦实现隔绝的上下文。生成sdk后，我们可以在sdk.html中默认通过public静态资源被外部访问，然后在options.ts修改对应iframeURL，在编辑器的navbar切换iframe加载。
