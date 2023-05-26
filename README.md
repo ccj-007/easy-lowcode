@@ -26,7 +26,8 @@
 
 ##   📈 文章
 
-[我的低代码框架是如何生成源码的？](https://juejin.cn/post/7206955531998773309)
+[简单5分钟，将lowcode低代码融入到你的中后台管理系统](https://juejin.cn/post/7115779659932893214)  
+[我的低代码框架是如何生成源码的？](https://juejin.cn/post/7206955531998773309)  
 [实不相瞒，看完你也能手撸一个低代码框架](https://juejin.cn/post/7202625823667404857)
 
 ## 如何调试sdk
@@ -35,4 +36,4 @@
 pnpm renderer   // 生成sdk
 ```
 
-画布区的iframe是为了与编辑器解耦，隔绝的上下文。生成sdk后，我们可以在sdk.html中通过liveServer插件快速预览页面，然后在options.ts修改对应iframeURL。在编辑器的navbar切换iframe加载。
+画布区的iframe是为了与编辑器解耦实现隔绝的上下文。生成sdk后，我们可以在sdk.html中通过liveServer插件快速预览页面，然后在options.ts修改对应iframeURL，在编辑器的navbar切换iframe加载。
