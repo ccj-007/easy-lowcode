@@ -40,7 +40,7 @@ const editObj = {
         placeholder: '修改文案'
       }
     },
-  ]    
+  ]
 }
 
 export default editObj

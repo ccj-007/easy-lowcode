@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-function useThrottle(fn: Function, wait: number = 1000, deps: any[] = []) {
+function useThrottle(fn: Function, wait: number = 1000, deps: unknown[] = []) {
   let pre = useRef(0)
   let [time, setTime] = useState(wait)
   useEffect(() => {

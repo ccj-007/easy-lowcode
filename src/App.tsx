@@ -1,15 +1,19 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef } from 'react'
 import { Routes, Route, Outlet } from "react-router";
 import { BrowserRouter } from "react-router-dom";
 import { Navbar, CompBar, Editor, Main, MainPreview } from "./layout";
 import _, { cloneDeep } from "lodash";
-export const Context = React.createContext<any>('')
 import json, { getCompId } from "./components/jsonObj";
 import Redirect from "./commonComp/Redirect";
 import editJSON from "./editor/editObj";
 import { getFileCodeTree } from "./outScan/index";
+import { GlobalJSON, CompUnion } from './types/json';
+import { EditObj } from './types/edit';
+import { RootStore } from './types/store';
 
-const saveJSON = (key: string, data: any) => {
+export const Context = React.createContext<RootStore>({})
+
+const saveJSON = (key: string, data: GlobalJSON | EditObj) => {
   localStorage.setItem(key, JSON.stringify(data))
 }
 const getJSON = (key: string) => {
@@ -17,7 +21,7 @@ const getJSON = (key: string) => {
   return obj ? JSON.parse(obj) : null
 }
 
-export const defaultGlobalObj = ({
+export const defaultGlobalObj: GlobalJSON = ({
   type: 'page',
   title: '默认标题',
   routeName: 'default',
@@ -29,13 +33,13 @@ export const defaultGlobalObj = ({
 })
 
 function App() {
-  const mainRef = useRef<any>(null)
-  const [globalObj, setGlobalObj] = useState<any>(getJSON('global_json') || defaultGlobalObj)
-  const [editObj, setEditObj] = useState<any>(getJSON('edit_json') || editJSON)
+  const mainRef = useRef<HTMLDivElement | null>(null)
+  const [globalObj, setGlobalObj] = useState<GlobalJSON>(getJSON('global_json') || defaultGlobalObj)
+  const [editObj, setEditObj] = useState<EditObj>(getJSON('edit_json') || editJSON)
   const [codeObj, setCodeObj] = useState({})
 
-  const [activeCompId, setActiveCompId] = useState<null | string>(null)
-  const [activeEditId, setActiveEditId] = useState(null)
+  const [activeCompId, setActiveCompId] = useState<string>('')
+  const [activeEditId, setActiveEditId] = useState('')
   const [preview, setPreview] = useState(false)
   const [renderPC, setRenderPC] = useState(true)
   const [order, setOrder] = useState(true)
@@ -45,10 +49,10 @@ function App() {
     editWidth: 20,
   })
 
-  const addGlobalObj = (data: any) => {
+  const addGlobalObj = (data: CompUnion) => {
     if (!data && typeof data !== 'object') return
     let newGlobalObj = _.cloneDeep(globalObj)
-    newGlobalObj.content = newGlobalObj.content.filter((item: any) => item)
+    newGlobalObj.content = newGlobalObj.content.filter((item: CompUnion) => item)
     const id = getCompId()
     data.id = id
     newGlobalObj.content.push(data)
@@ -57,35 +61,37 @@ function App() {
     id && setActiveCompId(id)
   }
 
-  const editGlobalObj = (target: any, value: any) => {
+  const editGlobalObj = (target: string, value: unknown) => {
     let newData = _.cloneDeep(globalObj)
-    let selectComp = newData.content.find((item: any) => item.id === activeCompId)
-    _.set(selectComp.data, target, value)
+    let selectComp = newData.content.find((item: CompUnion) => item.id === activeCompId)
+    selectComp && _.set(selectComp.data, target, value)
     setGlobalObj(newData)
     saveJSON('global_json', newData)
   }
-  const saveGlobalObj = (data: any) => {
+  const saveGlobalObj = (data: GlobalJSON) => {
     setGlobalObj(data)
     saveJSON('global_json', data)
   }
 
-  const editEditorObj = (target: any, value: any) => {
+  const [selectComp, compName] = React.useMemo(() => {
+    const selectComp = globalObj.content.find((item: CompUnion) => item.id === activeCompId)
+    const componentName = selectComp ? selectComp.componentName : ''
+    return [selectComp, componentName]
+  }, [activeCompId])
+
+  const editEditorObj = (target: string, value: unknown) => {
     let newData = _.cloneDeep(editObj)
-    const selectEdit = newData[compName].find((item: any) => item.id === activeEditId)
-    selectEdit.data[target] = value
+    if (compName) {
+      const selectEdit = newData[compName].find((item: CompUnion) => item.id === activeEditId)
+      selectEdit.data[target] = value
+    }
     setEditObj(newData)
     saveJSON('edit_json', newData)
   }
 
-  const [selectComp, compName] = React.useMemo(() => {
-    const selectComp = globalObj.content.find((item: any) => item.id === activeCompId)
-    const componentName = selectComp ? selectComp.componentName : null
-    return [selectComp, componentName]
-  }, [activeCompId])
-
   const [selectEdit, editName] = React.useMemo(() => {
     if (compName) {
-      const selectEdit = editObj[compName].find((item: any) => item.id === activeEditId)
+      const selectEdit = editObj[compName].find((item: CompUnion) => item.id === activeEditId)
       const editName = selectEdit ? selectEdit.type : null
       return [selectEdit, editName]
     }
@@ -97,30 +103,28 @@ function App() {
   }, [layout])
 
   React.useEffect(() => {
-    //默认选中
     if (globalObj.content.length > 0) {
       const comp = globalObj.content[0]
       setActiveCompId(comp.id)
     }
+
+    window.addEventListener('message', function (event) {
+      console.log("我是iframe父亲", event);
+    }, false);
   }, [])
 
   React.useEffect(() => {
     const code = getFileCodeTree(globalObj, { langs: 'react' })
     setCodeObj(code)
-
     if (isIframe) {
-      let iframe = document.getElementsByTagName('iframe')[0] as any
-      iframe.contentWindow.postMessage({ json: globalObj }, "*")
-      // window.addEventListener('message', function (event) {
-      //   console.log("我是iframe父亲", event);
-      // }, false);
+      let iframe = document.getElementsByTagName('iframe')[0] as HTMLIFrameElement
+      iframe?.contentWindow?.postMessage({ json: globalObj }, "*")
     }
   }, [globalObj])
 
   return (
     <Context.Provider value={{
-      mainRef: mainRef,
-      //主舞台组件
+      mainRef,
       globalObj,
       setGlobalObj,
       saveGlobalObj,
@@ -130,7 +134,6 @@ function App() {
       setActiveCompId,
       addGlobalObj,
       editGlobalObj,
-      //编辑器组件
       editObj,
       setEditObj,
       activeEditId,
@@ -138,22 +141,16 @@ function App() {
       selectEdit,
       editName,
       editEditorObj,
-      //是否预览
       preview,
       setPreview,
-      //默认渲染PC
       renderPC,
       setRenderPC,
-      //编排
       order,
       setOrder,
-      //code
       codeObj,
       setCodeObj,
-      //布局
       layout,
       setLayout,
-      //iframe
       isIframe,
       setIframe
     }}>

@@ -9,7 +9,6 @@ type Props = {
 
 const CodeMirrorWarp = (props: Props) => {
   const { data } = props
-  console.log(data);
 
   return (
     <>

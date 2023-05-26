@@ -1,5 +1,4 @@
 import React, { useRef, useContext } from 'react'
-import Comps from '../components'
 import { Context } from "../App";
 
 type Props = {

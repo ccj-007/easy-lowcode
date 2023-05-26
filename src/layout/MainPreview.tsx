@@ -3,17 +3,18 @@ import { useCtx } from "../hooks";
 import Comps from '../components'
 import _ from "lodash";
 import MobileView from "../view/MobileView";
+import { CompUnion } from '../types/json';
 
 type Props = {
   style: React.CSSProperties
   className: string
 }
 
-const MainPreview = React.forwardRef((props: Props | any, ref) => {
-  const { activeCompId, setActiveCompId, saveGlobalObj, globalObj, renderPC } = useCtx()
+const MainPreview = React.forwardRef((props: Props, ref: any) => {
+  const { activeCompId, setActiveCompId, globalObj, renderPC } = useCtx()
 
   const renderMainView = () => {
-    return (globalObj.content).map((json: any, contentIndex: number) => {
+    return (globalObj.content).map((json: CompUnion, contentIndex: number) => {
       return <div key={contentIndex}>
         {
           Object.entries(Comps).map(([name, Comp], CompIndex) => {
@@ -21,6 +22,7 @@ const MainPreview = React.forwardRef((props: Props | any, ref) => {
               {
                 name === json.componentName ?
                   <div className={activeCompId === json.id ? 'comp-edit-active' : ''} onClick={() => setActiveCompId(json.id)}>
+                    {/* @ts-ignore */}
                     <Comp key={json.id} data={json.data} />
                   </div> : <></>
               }
@@ -34,7 +36,9 @@ const MainPreview = React.forwardRef((props: Props | any, ref) => {
     <div {...props} ref={ref}>
       {
         renderPC ? renderMainView() : <MobileView>
-          {renderMainView()}
+          <>
+            {renderMainView()}
+          </>
         </MobileView>
       }
     </div >

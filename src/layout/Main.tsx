@@ -5,16 +5,17 @@ import Comps from '../components'
 import MobileView from "../view/MobileView";
 import utils from "../utils";
 import { produce } from 'immer'
-import { CompUnion } from '../types'
+import { CompUnion } from '../types/json'
 import _ from 'lodash'
 import { getCompId } from "../components/jsonObj";
+import options from '../options'
 
 type Props = {
   style: React.CSSProperties
   className: string
 }
 
-const Main = React.forwardRef((props: Props | any, ref) => {
+const Main = React.forwardRef((props: Props, ref: React.ForwardedRef<HTMLDivElement | null>) => {
   const { activeCompId, setActiveCompId, saveGlobalObj, globalObj, renderPC, setGlobalObj, order, layout, setLayout, isIframe } = useCtx()
   const prevY = useRef(0)
   const prevId = useRef('')
@@ -99,24 +100,17 @@ const Main = React.forwardRef((props: Props | any, ref) => {
     const newObj = produce(globalObj, (draft) => {
       let idx = draft.content.findIndex(item => item.id === activeCompId)
       let copyItem = draft.content.find(item => item.id === activeCompId)
-      const newCopyItem = _.cloneDeep(copyItem)
+      const newCopyItem: any = _.cloneDeep(copyItem)
       newCopyItem.id = getCompId()
       draft.content.splice(idx, 0, newCopyItem)
     })
     setGlobalObj(newObj)
   }
+
   /**
-   * 更换
+   * 拖拽
+   * @param e 
    */
-  const exchange = () => {
-    saveGlobalObj(defaultGlobalObj)
-  }
-  /**
-  * 多选
-  */
-  const moreSelect = () => {
-    saveGlobalObj(defaultGlobalObj)
-  }
   const handleDragOver = (e: DragEvent) => {
     const y = e.clientY
     const id = (e.target as HTMLElement).id
@@ -130,8 +124,8 @@ const Main = React.forwardRef((props: Props | any, ref) => {
       const newData = _.cloneDeep(globalObj)
       const content = newData.content
       if (content.length) {
-        let oldIdx = content.findIndex((item: any) => item.id === startDragId.current)
-        let newIdx = content.findIndex((item: any) => item.id === endDragId.current) as any
+        let oldIdx = content.findIndex((item: CompUnion) => item.id === startDragId.current)
+        let newIdx = content.findIndex((item: CompUnion) => item.id === endDragId.current)
 
         if (startDragId.current !== endDragId.current && newIdx > -1 && oldIdx > -1) {
           [content[oldIdx], content[newIdx]] = [content[newIdx], content[oldIdx]]
@@ -168,6 +162,7 @@ const Main = React.forwardRef((props: Props | any, ref) => {
                 name === json.componentName ?
                   <div className={activeCompId === json.id ? 'comp-edit-active' : ''} onClick={() => setActiveCompId(json.id)} onDragOver={throttleDragOver} onDragStart={handleDragStart} id={json.id}
                     draggable>
+                    {/* @ts-ignore */}
                     <Comp key={json.id} data={json.data} id={json.id} />
                   </div> : <></>
               }
@@ -191,22 +186,21 @@ const Main = React.forwardRef((props: Props | any, ref) => {
             <div className="tools-item tools-del btn tools-btn" onClick={selectDel}>删除</div>
             <div className="tools-item tools-clear btn tools-btn" onClick={clearJSON}>清空</div>
             <div className="tools-item tools-clear btn tools-btn" onClick={copy}>复制</div>
-            <div className="tools-item tools-clear btn tools-btn" onClick={exchange}>更换</div>
-            <div className="tools-item tools-clear btn tools-btn" onClick={moreSelect}>多选</div>
           </div>
         }
       </div>
       <div className='layout-mid-content' style={{ 'paddingTop': order ? '80px' : '50px' }}>
-
         {
           isIframe ?
             // iframe加载与编辑器解耦
-            <iframe src="http://127.0.0.1:5500/sdk.html" frameBorder="0" width={'100%'} height={'100%'}></iframe>
+            <iframe src={options.iframeURL} frameBorder="0" width={'100%'} height={'100%'}></iframe>
             :
             // 非iframe加载，存在隔离问题
             renderPC ? renderMainView()
               : <MobileView>
-                {renderMainView()}
+                <>
+                  {renderMainView()}
+                </>
               </MobileView>
         }
         {/* 辅助按钮 */}

@@ -1,9 +1,9 @@
-import React, { FC } from 'react'
+import React, { ButtonHTMLAttributes, FC } from 'react'
 
 type Props = {
-  data?: any
+  data?: ButtonHTMLAttributes<HTMLButtonElement>
   id?: string
-  children?: string
+  children?: React.ReactNode
 }
 
 const Button: FC = (props: Props) => {

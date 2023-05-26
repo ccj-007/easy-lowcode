@@ -12,22 +12,26 @@ type Props = {
 
 const CompBar = (props: Props) => {
   const ctx = useContext(Context)
+  const { addGlobalObj, isIframe } = ctx
   const [activePanelId, setActivePanelId] = useState('0')
-  const { addGlobalObj } = ctx
 
-  const handleDragEnd = (e: any) => {
+  const handleDragEnd = (e: DragEvent) => {
     const { clientX, clientY } = e
     const mainRef = ctx.mainRef.current
+    if (!mainRef) return
 
     const { offsetTop, offsetLeft, offsetWidth } = mainRef
-    if (clientX > offsetLeft && clientX < offsetLeft + offsetWidth && clientY > offsetTop) {
-      const CompName = (e.target as HTMLElement).getAttribute('data-name') as JsonKey
-      CompName && json[CompName] && addGlobalObj(json[CompName])
+    if (isIframe) {
+      const iframe = document.getElementsByTagName('iframe')[0] as HTMLIFrameElement
+      console.log(iframe);
+
+      console.log(iframe?.contentWindow?.document);
+    } else {
+      if (clientX > offsetLeft && clientX < offsetLeft + offsetWidth && clientY > offsetTop) {
+        const CompName = (e.target as HTMLElement).getAttribute('data-name') as JsonKey
+        CompName && json[CompName] && addGlobalObj(json[CompName])
+      }
     }
-  }
-
-  const handleClick = (e: any) => {
-
   }
 
   const handleDownload = () => {
@@ -64,7 +68,7 @@ const CompBar = (props: Props) => {
                 <div key={index}>
                   <div className="sub-title">{CompName}</div>
                   <div className='comp-drag-warp'
-                    onDragEnd={(e) => handleDragEnd(e)} onClick={handleClick} data-name={CompName} draggable>
+                    onDragEnd={(e: any) => handleDragEnd(e)} data-name={CompName} draggable>
                     <Comp key={CompName}></Comp>
                   </div>
                 </div>

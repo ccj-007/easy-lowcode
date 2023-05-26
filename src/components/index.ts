@@ -3,7 +3,7 @@ import Input from "./Input"
 import Button from "./Button"
 
 const Comps = {
-  Input, 
+  Input,
   Button
 }
 

@@ -1,7 +1,7 @@
-import React, { FC } from 'react'
+import React, { FC, InputHTMLAttributes } from 'react'
 
 type Props = {
-  data?: any,
+  data?: InputHTMLAttributes<HTMLInputElement>,
   id?: string
 }
 
