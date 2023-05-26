@@ -30,6 +30,13 @@
 [我的低代码框架是如何生成源码的？](https://juejin.cn/post/7206955531998773309)  
 [实不相瞒，看完你也能手撸一个低代码框架](https://juejin.cn/post/7202625823667404857)
 
+## 快速开始
+
+```js
+pnpm dev
+pnpm run server
+```
+
 ## 如何调试sdk
 
 ```js
