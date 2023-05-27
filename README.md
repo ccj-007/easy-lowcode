@@ -1,6 +1,6 @@
 # easy-lowcode
 
-##  🔥 最简单的低代码实现
+##  🔥 最简单的低代码实现 
 
 技术栈： React18 + Vite + codeMirror + Koa2（后期将改用nestjs）
 
@@ -20,27 +20,34 @@
 15. 自定义事件中心 ×
 16. 完整的生产页面并部署 ×
 
-##   📀 预览
+##   📀 Preview
 
 [easy-lowcode](http://rreppket2.hn-bkt.clouddn.com/6b3176fd80b347b38a62377692487581_tplv-k3u1fbpfcp-zoom-in-crop-mark_1512_0_0_0.webp)
 
-##   📈 文章
+##   📈 Article
 
 [简单5分钟，将lowcode低代码融入到你的中后台管理系统](https://juejin.cn/post/7115779659932893214)  
 [我的低代码框架是如何生成源码的？](https://juejin.cn/post/7206955531998773309)  
 [实不相瞒，看完你也能手撸一个低代码框架](https://juejin.cn/post/7202625823667404857)
 
-## 快速开始
+## Quick Start
 
 ```js
 pnpm dev
 pnpm run server
 ```
 
-## 如何调试sdk
+## How to use SDK
 
 ```js
 pnpm renderer   // 生成sdk
 ```
 
 画布区的iframe是为了与编辑器解耦实现隔绝的上下文。生成sdk后，我们可以在sdk.html中默认通过public静态资源被外部访问，然后在options.ts修改对应iframeURL，在编辑器的navbar切换iframe加载。
+
+## Error Resolution
+
+extension set ([object Object]). This sometimes happens because multiple instances of @codemirror/state are loaded, breaking instanceof checks.
+    at inner (index.js:2017:23)
+
+依赖兼容问题，请删除lock、node_modules, 然后重新安装依赖即可解决

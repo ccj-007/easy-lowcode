@@ -1,5 +1,5 @@
 import React from 'react'
-import '../css/h5.css';
+import '../static/css/h5.css';
 type Props = {
   children?: React.ReactElement
 }

@@ -43,7 +43,7 @@ function App() {
   const [preview, setPreview] = useState(false)
   const [renderPC, setRenderPC] = useState(true)
   const [order, setOrder] = useState(true)
-  const [isIframe, setIframe] = useState(false)
+  const [isIframe, setIframe] = useState(true)
   const [layout, setLayout] = useState({
     sidebarWidth: 25,
     editWidth: 20,
@@ -107,19 +107,11 @@ function App() {
       const comp = globalObj.content[0]
       setActiveCompId(comp.id)
     }
-
-    window.addEventListener('message', function (event) {
-      console.log("我是iframe父亲", event);
-    }, false);
   }, [])
 
   React.useEffect(() => {
     const code = getFileCodeTree(globalObj, { langs: 'react' })
     setCodeObj(code)
-    if (isIframe) {
-      let iframe = document.getElementsByTagName('iframe')[0] as HTMLIFrameElement
-      iframe?.contentWindow?.postMessage({ json: globalObj }, "*")
-    }
   }, [globalObj])
 
   return (

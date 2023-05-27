@@ -1,5 +1,7 @@
 :root {
   --main-color: #2468f2;
+  --main-white: #fff;
+  --light-color: #006cff;
   --btn-bg-color: #2468f2;
   --btn-shadow: 0px 4px 10px 0px #dedede;
   --btn-shadow-active: 0px 4px 10px 0px #2468f2;

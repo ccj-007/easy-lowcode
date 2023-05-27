@@ -3,6 +3,10 @@ html body {
   margin: 0;
 }
 
+.cursor {
+  cursor: pointer;
+}
+
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;

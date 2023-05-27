@@ -23,8 +23,6 @@ const CompBar = (props: Props) => {
     const { offsetTop, offsetLeft, offsetWidth } = mainRef
     if (isIframe) {
       const iframe = document.getElementsByTagName('iframe')[0] as HTMLIFrameElement
-      console.log(iframe);
-
       console.log(iframe?.contentWindow?.document);
     } else {
       if (clientX > offsetLeft && clientX < offsetLeft + offsetWidth && clientY > offsetTop) {

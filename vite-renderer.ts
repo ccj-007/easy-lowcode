@@ -1,7 +1,7 @@
-import { defineConfig } from "vite";
+import { UserConfigExport } from "vite";
 import react from "@vitejs/plugin-react";
 
-const renderConfig = {
+const renderConfig: UserConfigExport = {
   build: {
     outDir: "es",
     lib: {
@@ -28,11 +28,4 @@ const renderConfig = {
   plugins: [react()],
 }
 
-const editorConfig = {
-  plugins: [react()]
-}
-
-const isRenderer = process.env.NODE_ENV === 'renderer'
-const useConfig = isRenderer ? renderConfig : editorConfig
-
-export default defineConfig(useConfig)
+export default renderConfig

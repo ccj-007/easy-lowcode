@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "renderer": "cross-env NODE_ENV=renderer  vite build",
+    "renderer": "cross-env NODE_ENV=renderer  vite build --watch",
+    "editor": "cross-env NODE_ENV=editor  vite build --watch",
     "server": "nodemon ./server/App.cjs",
     "build": "tsc && vite build",
     "preview": "vite preview"
@@ -37,6 +38,7 @@
     "prettier": "^2.8.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.8.0",
     "react-router": "^6.8.1",
     "react-router-dom": "^6.8.1",
     "uuid": "^9.0.0"

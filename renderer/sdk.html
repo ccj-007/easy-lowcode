@@ -12,10 +12,6 @@
     height: 100%;
     width: 100%;
   }
-  html, body {
-    height: 100%;
-    width: 100%;
-  }
 </style>
 <body>
   <div id="app"></div>
@@ -27,8 +23,6 @@
   <link rel="stylesheet" href="/renderer/style.css">
   <script type="module">
     import Renderer from '/renderer/index.js'
-    import initEditor from '/editor/index.js'
-
     let json = {
       "type": "page",
       "title": "默认标题",
@@ -65,10 +59,22 @@
       render()
     }
 
+    function handleEditor() {
+       json.content.forEach(item => {
+         let dom = document.getElementById(item.id)
+         if(dom) {
+          dom.onclick = () => {
+            alert('111')
+          }
+         }
+       })
+    }
     function render () {
       ReactDOM.render(Renderer({ jsonObj: json }), App);
-      initEditor(json)
+
+      handleEditor()
     } 
+
     render()
 
   </script>

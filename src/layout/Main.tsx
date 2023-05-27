@@ -8,7 +8,8 @@ import { produce } from 'immer'
 import { CompUnion } from '../types/json'
 import _ from 'lodash'
 import { getCompId } from "../components/jsonObj";
-import options from '../options'
+import MyIframe from '../iframe/MyIframe'
+import { AiFillDelete, AiFillFileText } from "react-icons/ai";
 
 type Props = {
   style: React.CSSProperties
@@ -87,7 +88,7 @@ const Main = React.forwardRef((props: Props, ref: React.ForwardedRef<HTMLDivElem
     })
     setGlobalObj(newObj)
   }
-  /**
+  /**1
    * 清空
    */
   const clearJSON = () => {
@@ -150,7 +151,7 @@ const Main = React.forwardRef((props: Props, ref: React.ForwardedRef<HTMLDivElem
   }
 
   /**
-   * 渲染区域
+   * 组件渲染区域
    */
   const renderMainView = () => {
     return (globalObj.content).map((json: CompUnion, contentIndex: number) => {
@@ -162,6 +163,17 @@ const Main = React.forwardRef((props: Props, ref: React.ForwardedRef<HTMLDivElem
                 name === json.componentName ?
                   <div className={activeCompId === json.id ? 'comp-edit-active' : ''} onClick={() => setActiveCompId(json.id)} onDragOver={throttleDragOver} onDragStart={handleDragStart} id={json.id}
                     draggable>
+                    {
+                      activeCompId === json.id && <>
+                        <div className={'comp-edit-tool cursor'}>
+                          <span>{name.toLocaleUpperCase()}</span>
+                          <span>
+                            <AiFillDelete style={{ 'color': '#fff' }} onClick={selectDel} />
+                            <AiFillFileText onClick={copy} />
+                          </span>
+                        </div>
+                      </>
+                    }
                     {/* @ts-ignore */}
                     <Comp key={json.id} data={json.data} id={json.id} />
                   </div> : <></>
@@ -176,24 +188,23 @@ const Main = React.forwardRef((props: Props, ref: React.ForwardedRef<HTMLDivElem
   return (
     <div {...props} ref={ref} className="layout-main-mid">
       <div className="layout-mid-tools" >
-        <div className="main-title">页面</div>
         {
           order && <div className='tools'>
-            <div className="tools-item tools-up btn tools-btn" onClick={editUp}>上移</div>
-            <div className="tools-item tools-down btn tools-btn" onClick={editDown}>下移</div>
-            <div className="tools-item tools-clear btn tools-btn" onClick={selectUp}>上选</div>
-            <div className="tools-item tools-clear btn tools-btn" onClick={selectDown}>下选</div>
-            <div className="tools-item tools-del btn tools-btn" onClick={selectDel}>删除</div>
-            <div className="tools-item tools-clear btn tools-btn" onClick={clearJSON}>清空</div>
-            <div className="tools-item tools-clear btn tools-btn" onClick={copy}>复制</div>
+            <div className="tools-item" onClick={editUp}>上移</div>
+            <div className="tools-item" onClick={editDown}>下移</div>
+            <div className="tools-item" onClick={selectUp}>上选</div>
+            <div className="tools-item" onClick={selectDown}>下选</div>
+            <div className="tools-item" onClick={selectDel}>删除</div>
+            <div className="tools-item" onClick={clearJSON}>清空</div>
+            <div className="tools-item" onClick={copy}>复制</div>
           </div>
         }
       </div>
-      <div className='layout-mid-content' style={{ 'paddingTop': order ? '80px' : '50px' }}>
+      <div className='layout-mid-content' >
         {
           isIframe ?
             // iframe加载与编辑器解耦
-            <iframe src={options.iframeURL} frameBorder="0" width={'100%'} height={'100%'}></iframe>
+            <MyIframe />
             :
             // 非iframe加载，存在隔离问题
             renderPC ? renderMainView()

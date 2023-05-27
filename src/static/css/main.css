@@ -44,24 +44,22 @@
 .layout-main-mid {
   position: relative;
   box-shadow: 0px 0px 20px 10px var(--shadow-color) inset;
-  padding: 10px;
+  padding: 26px;
   background: rgba(235, 235, 235, 0.436);
 }
 
 .layout-mid-tools {
   position: absolute;
   top: 0;
-  left: 0;
-  background: #fff;
-  width: 100%;
+  left: 26px;
   box-sizing: border-box;
-  border: 1px solid var(--border-light);
-  padding: 10px;
   transition: 1s all linear;
 }
 
 .layout-mid-content {
-  padding-top: 90px;
+  width: 100%;
+  height: 100%;
+  background: #fff;
 }
 
 .layout-base {
@@ -124,9 +122,25 @@
 }
 
 .comp-edit-active {
+  position: relative;
   border: 1px solid var(--border-primary);
 }
-
+.comp-edit-tool {
+  padding: 0 6px;
+  box-sizing: border-box;
+  position: absolute;
+  top: -24px;
+  right: 0;
+  border-radius: 4px;
+  width: 100px;
+  height: 20px;
+  background: var(--light-color);
+  color: #fff;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 .comp-panels {
   width: 150px;
   position: relative;
@@ -153,11 +167,13 @@
 }
 
 .tools-item {
-  padding: 5px 10px;
+  padding: 5px 5px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: var(--main-color);
+  color: var(--main-white);
 }
 
 .cm-scroller {
