@@ -48,9 +48,6 @@ const Navbar = (props: Props) => {
         <button className="navbar-btn btn" onClick={handleIframe}>
           {isIframe ? '默认加载' : 'iframe加载'}
         </button>
-        <button className="navbar-btn btn" onClick={handleOrder}>
-          {order ? '拖拽' : '编排'}
-        </button>
         <button className="navbar-btn btn" onClick={handlePreview}>
           {preview ? '编辑' : '预览'}
         </button>

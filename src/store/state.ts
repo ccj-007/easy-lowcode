@@ -1,6 +1,5 @@
 import { create } from 'zustand'
 import { RootStore } from '@/types/store'
-import { createSelectors } from '@/store/createSelectors'
 import { defaultGlobalObj } from '@/store/config'
 import { getJSON } from '@/utils/storage'
 import _ from "lodash";
@@ -27,10 +26,9 @@ const useStore = create<RootStore>((set) => ({
         sidebarWidth: 25,
         editWidth: 20,
     },
-    isIframe: false,
+    isIframe: true,
     activePanelId: Panel.comp
 }))
 
-const STATE = createSelectors(useStore).use
 
 export default useStore

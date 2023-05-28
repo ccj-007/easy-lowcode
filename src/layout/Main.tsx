@@ -190,13 +190,22 @@ const Main = React.forwardRef((props: Props, ref: React.ForwardedRef<HTMLDivElem
       <div className="layout-mid-tools" >
         {
           order && <div className='tools'>
-            <div className="tools-item" onClick={editUp}>上移</div>
-            <div className="tools-item" onClick={editDown}>下移</div>
-            <div className="tools-item" onClick={selectUp}>上选</div>
-            <div className="tools-item" onClick={selectDown}>下选</div>
-            <div className="tools-item" onClick={selectDel}>删除</div>
-            <div className="tools-item" onClick={clearJSON}>清空</div>
-            <div className="tools-item" onClick={copy}>复制</div>
+            <div className='tools-status'>
+              项目名：{'cms2'}
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              路由名：{'/default'}
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              BaseURL：{'http://localhost:5173'}
+            </div>
+            <div className='tools-edit'>
+              <div className="tools-item" onClick={editUp}>上移</div>
+              <div className="tools-item" onClick={editDown}>下移</div>
+              <div className="tools-item" onClick={selectUp}>上选</div>
+              <div className="tools-item" onClick={selectDown}>下选</div>
+              <div className="tools-item" onClick={selectDel}>删除</div>
+              <div className="tools-item" onClick={clearJSON}>清空</div>
+              <div className="tools-item" onClick={copy}>复制</div>
+            </div>
           </div>
         }
       </div>

@@ -33,12 +33,11 @@ export const handleEditor = (json: GlobalJSON, options: { id: string }) => {
     })
 
     if (options.id) {
-        let rootDOM = document.getElementById(options.id)
+        let rootDOM = document.getElementById(options.id) as HTMLElement
         rootDOM && rootDOM.addEventListener('mouseover', (e: MouseEvent) => {
             store.pageX = e.pageX
             store.pageY = e.pageY
             console.log("store position", store.pageX, store.pageY);
-
         })
     }
 }
