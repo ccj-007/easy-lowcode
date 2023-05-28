@@ -1,12 +1,10 @@
-import React, { useRef, useEffect, useContext } from 'react'
+import React, { useContext } from 'react'
 import CodeMirrorWarp from "./CodeMirrorWarp";
-import { Context } from "../App";
-import { GlobalJSON } from '../types/json';
+import useStore from '@/store';
 type Props = {}
 
 const JsonView = (props: Props) => {
-  const ctx = useContext(Context)
-  const { globalObj, saveGlobalObj } = ctx
+  const { globalObj } = useStore((state) => state)
 
   return (
     <CodeMirrorWarp

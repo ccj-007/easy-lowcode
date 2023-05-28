@@ -18,13 +18,19 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
   },
   "include": [
-    "/src"
+    "./src",
   ],
   "exclude": [
-    "/node_modules/**"
+    "node_modules",
+    "dist"
   ],
   "references": [
     {

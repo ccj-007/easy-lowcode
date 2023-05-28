@@ -1,4 +1,4 @@
 import Renderer from './Renderer'
-import '../css/index.css';
+import '../static/css/index.css';
 
 export default Renderer

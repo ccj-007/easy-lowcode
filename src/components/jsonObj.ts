@@ -22,5 +22,5 @@ const jsonObj = {
 }
 
 export type JsonType = typeof jsonObj
-export type JsonKey = keyof JsonType
+export type CompKey = keyof JsonType
 export default jsonObj

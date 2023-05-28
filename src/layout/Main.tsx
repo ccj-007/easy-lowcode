@@ -1,6 +1,5 @@
 import React, { DragEvent, useRef } from 'react'
-import { useCtx } from "../hooks";
-import { defaultGlobalObj } from "../App";
+import { defaultGlobalObj } from "@/config";
 import Comps from '../components'
 import MobileView from "../view/MobileView";
 import utils from "../utils";
@@ -10,6 +9,7 @@ import _ from 'lodash'
 import { getCompId } from "../components/jsonObj";
 import MyIframe from '../iframe/MyIframe'
 import { AiFillDelete, AiFillFileText } from "react-icons/ai";
+import useStore, { setActiveCompId, saveGlobalObj, setLayout, setGlobalObj } from "@/store";
 
 type Props = {
   style: React.CSSProperties
@@ -17,7 +17,7 @@ type Props = {
 }
 
 const Main = React.forwardRef((props: Props, ref: React.ForwardedRef<HTMLDivElement | null>) => {
-  const { activeCompId, setActiveCompId, saveGlobalObj, globalObj, renderPC, setGlobalObj, order, layout, setLayout, isIframe } = useCtx()
+  const { activeCompId, globalObj, renderPC, order, layout, isIframe } = useStore((state) => state)
   const prevY = useRef(0)
   const prevId = useRef('')
 
@@ -30,7 +30,7 @@ const Main = React.forwardRef((props: Props, ref: React.ForwardedRef<HTMLDivElem
   const editUp = () => {
     const newObj = produce(globalObj, (draft) => {
       const { content } = draft
-      let idx = content.findIndex(item => item.id === activeCompId)
+      let idx = content.findIndex(item => item && item.id === activeCompId)
       if (idx >= 1) {
         [content[idx - 1], content[idx]] = [content[idx], content[idx - 1]]
       } else {
@@ -45,7 +45,7 @@ const Main = React.forwardRef((props: Props, ref: React.ForwardedRef<HTMLDivElem
   const editDown = () => {
     const newObj = produce(globalObj, (draft) => {
       const { content } = draft
-      let idx = content.findIndex(item => item.id === activeCompId)
+      let idx = content.findIndex(item => item && item.id === activeCompId)
       if (idx < content.length - 1) {
         [content[idx], content[idx + 1]] = [content[idx + 1], content[idx]]
       } else {
@@ -58,7 +58,7 @@ const Main = React.forwardRef((props: Props, ref: React.ForwardedRef<HTMLDivElem
    * 上选
    */
   const selectUp = () => {
-    let idx = globalObj.content.findIndex(item => item.id === activeCompId)
+    let idx = globalObj.content.findIndex(item => item && item.id === activeCompId)
     if (idx >= 1) {
       let id = globalObj.content[idx - 1].id
       setActiveCompId(id)
@@ -70,7 +70,7 @@ const Main = React.forwardRef((props: Props, ref: React.ForwardedRef<HTMLDivElem
    * 下选
    */
   const selectDown = () => {
-    let idx = globalObj.content.findIndex(item => item.id === activeCompId)
+    let idx = globalObj.content.findIndex(item => item && item.id === activeCompId)
     if (idx + 1 <= globalObj.content.length - 1) {
       let id = globalObj.content[idx + 1].id
       setActiveCompId(id)
@@ -83,7 +83,7 @@ const Main = React.forwardRef((props: Props, ref: React.ForwardedRef<HTMLDivElem
    */
   const selectDel = () => {
     const newObj = produce(globalObj, (draft) => {
-      let idx = draft.content.findIndex(item => item.id === activeCompId)
+      let idx = draft.content.findIndex(item => item && item.id === activeCompId)
       draft.content.splice(idx, 1)
     })
     setGlobalObj(newObj)
@@ -99,8 +99,8 @@ const Main = React.forwardRef((props: Props, ref: React.ForwardedRef<HTMLDivElem
    */
   const copy = () => {
     const newObj = produce(globalObj, (draft) => {
-      let idx = draft.content.findIndex(item => item.id === activeCompId)
-      let copyItem = draft.content.find(item => item.id === activeCompId)
+      let idx = draft.content.findIndex(item => item && item.id === activeCompId)
+      let copyItem = draft.content.find(item => item && item.id === activeCompId)
       const newCopyItem: any = _.cloneDeep(copyItem)
       newCopyItem.id = getCompId()
       draft.content.splice(idx, 0, newCopyItem)
@@ -125,8 +125,8 @@ const Main = React.forwardRef((props: Props, ref: React.ForwardedRef<HTMLDivElem
       const newData = _.cloneDeep(globalObj)
       const content = newData.content
       if (content.length) {
-        let oldIdx = content.findIndex((item: CompUnion) => item.id === startDragId.current)
-        let newIdx = content.findIndex((item: CompUnion) => item.id === endDragId.current)
+        let oldIdx = content.findIndex((item: CompUnion) => item && item.id === startDragId.current)
+        let newIdx = content.findIndex((item: CompUnion) => item && item.id === endDragId.current)
 
         if (startDragId.current !== endDragId.current && newIdx > -1 && oldIdx > -1) {
           [content[oldIdx], content[newIdx]] = [content[newIdx], content[oldIdx]]

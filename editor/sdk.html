@@ -28,7 +28,9 @@
   <script type="module">
     import Renderer from '/renderer/index.js'
     import initEditor from '/editor/index.js'
-
+    const options = {
+      id: 'app'
+    }
     let json = {
       "type": "page",
       "title": "默认标题",
@@ -67,7 +69,7 @@
 
     function render () {
       ReactDOM.render(Renderer({ jsonObj: json }), App);
-      initEditor(json)
+      initEditor(json, options)
     } 
     render()
 

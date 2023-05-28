@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import CodeMirrorWarp from "./CodeMirrorWarp";
-import { getFileCodeTree } from "../outScan/index";
-import { useCtx } from "../hooks";
+import useStore from "@/store";
 
 type Props = {}
 
 const JsonView = (props: Props) => {
-  const { codeObj } = useCtx()
-
+  const { codeObj } = useStore(
+    (state) => state,
+  )
   return (
     <>
       {

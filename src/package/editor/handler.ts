@@ -1,12 +1,16 @@
+import { GlobalJSON } from "@/types/json"
+
 /**
  * handle editor
  * @param json 
  */
-const store: any = {
+const store: { [k: string]: string | number } = {
     cid: '',
+    pageX: 0,
+    pageY: 0
 }
 
-export const handleEditor = (json) => {
+export const handleEditor = (json: GlobalJSON, options: { id: string }) => {
     // validator
     if (!document || !json.content) {
         throw new Error('exist error json or document not loaded')
@@ -28,5 +32,13 @@ export const handleEditor = (json) => {
         })
     })
 
+    if (options.id) {
+        let rootDOM = document.getElementById(options.id)
+        rootDOM && rootDOM.addEventListener('mouseover', (e: MouseEvent) => {
+            store.pageX = e.pageX
+            store.pageY = e.pageY
+            console.log("store position", store.pageX, store.pageY);
 
+        })
+    }
 }

@@ -1,11 +1,14 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom";
-import { useCtx } from '../hooks'
+import useStore, { setRenderPC, setPreview, setOrder, saveGlobalObj, setIframe } from "@/store";
+
 type Props = {
 }
 const Navbar = (props: Props) => {
   const navigate = useNavigate()
-  const { setPreview, preview, renderPC, setRenderPC, globalObj, saveGlobalObj, codeObj, order, setOrder, isIframe, setIframe } = useCtx()
+  const { preview, renderPC, globalObj, codeObj, order, isIframe } = useStore(
+    (state) => state,
+  )
 
   const handlePreview = () => {
     preview ? navigate('/edit') : navigate('/preview')

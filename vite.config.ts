@@ -1,7 +1,7 @@
-import react from "@vitejs/plugin-react";
 import { defineConfig } from 'vite';
-import RendererConfig from './vite-renderer'
-import EditorConfig from './vite-editor'
+import RendererConfig from './viteConfig/vite-renderer'
+import EditorConfig from './viteConfig/vite-editor'
+import DefaultConfig from './viteConfig/vite-default'
 
 let curConfig
 
@@ -13,9 +13,7 @@ switch (process.env.NODE_ENV) {
         curConfig = EditorConfig
         break;
     default:
-        curConfig = {
-            plugins: [react()]
-        }
+        curConfig = DefaultConfig
         break;
 }
 

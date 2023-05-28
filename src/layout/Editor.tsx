@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { Context } from "../App";
 import editorComps from "../editor/index";
 import { EditObj, EditUnion } from '../types/edit';
-import { CompUnion } from '../types/json';
+import useStore, { setActiveEditId, } from "@/store";
 type Props = {
   style: React.CSSProperties
   className: string
@@ -10,13 +10,15 @@ type Props = {
 
 const Editor = (props: Props) => {
   const ctx = useContext(Context)
-  const { compName, setActiveEditId, editObj } = ctx
+  const { compName, editObj } = useStore(
+    (state) => state,
+  )
 
   return (
     <div {...props}>
       <div className="main-title">编辑</div>
       {
-        compName && editObj[compName].map((editItem: EditUnion, index: number) => {
+        compName && editObj && editObj[compName].map((editItem: EditUnion, index: number) => {
           return <div key={index}>
             {
               Object.entries(editorComps).map(([name, EditorComp], index) => {

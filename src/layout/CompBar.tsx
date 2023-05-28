@@ -1,10 +1,11 @@
 import React, { useState, useContext } from 'react'
 import { Context } from "../App";
 import Comps from '../components'
-import json, { JsonKey } from '../components/jsonObj'
+import json, { CompKey } from '../components/jsonObj'
 import JsonView from "../view/JsonView";
 import CodeView from "../view/CodeView";
-
+import useStore, { addGlobalObj, setActivePanelId } from "@/store";
+import { Panel } from '@/types/enum';
 type Props = {
   style: React.CSSProperties
   className: string
@@ -12,13 +13,15 @@ type Props = {
 
 const CompBar = (props: Props) => {
   const ctx = useContext(Context)
-  const { addGlobalObj, isIframe } = ctx
-  const [activePanelId, setActivePanelId] = useState('0')
+  const { isIframe, activePanelId } = useStore(
+    (state) => state,
+  )
 
-  const handleDragEnd = (e: DragEvent) => {
+  const handleDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
+    if (!ctx || !e) return
+
     const { clientX, clientY } = e
     const mainRef = ctx.mainRef.current
-    if (!mainRef) return
 
     const { offsetTop, offsetLeft, offsetWidth } = mainRef
     if (isIframe) {
@@ -26,7 +29,7 @@ const CompBar = (props: Props) => {
       console.log(iframe?.contentWindow?.document);
     } else {
       if (clientX > offsetLeft && clientX < offsetLeft + offsetWidth && clientY > offsetTop) {
-        const CompName = (e.target as HTMLElement).getAttribute('data-name') as JsonKey
+        const CompName = (e.target as HTMLElement).getAttribute('data-name') as CompKey
         CompName && json[CompName] && addGlobalObj(json[CompName])
       }
     }
@@ -52,7 +55,7 @@ const CompBar = (props: Props) => {
     })
   }
 
-  const togglePanel = (k) => {
+  const togglePanel = (k: Panel) => {
     setActivePanelId(k)
   }
 
@@ -66,7 +69,7 @@ const CompBar = (props: Props) => {
                 <div key={index}>
                   <div className="sub-title">{CompName}</div>
                   <div className='comp-drag-warp'
-                    onDragEnd={(e: any) => handleDragEnd(e)} data-name={CompName} draggable>
+                    onDragEnd={(e: React.DragEvent<HTMLDivElement>) => handleDragEnd(e)} data-name={CompName} draggable>
                     <Comp key={CompName}></Comp>
                   </div>
                 </div>
@@ -100,7 +103,7 @@ const CompBar = (props: Props) => {
       <div className='comp-panels flex-center-between'>
         {
           Object.entries(PANEL_MAP).map(([k, panel], index) => {
-            return <div key={k} onClick={() => togglePanel(k)}>
+            return <div key={k} onClick={() => togglePanel((k as Panel))}>
               <div className="main-title" >
                 <div className={activePanelId === k ? 'title-active' : ''}>{panel.title}</div>
                 {

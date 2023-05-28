@@ -1,5 +1,5 @@
-import React, { useRef, useContext } from 'react'
-import { Context } from "../App";
+import React, { useRef } from 'react'
+import { editGlobalObj } from "@/store";
 
 type Props = {
   data?: any
@@ -8,9 +8,7 @@ type Props = {
 
 const Button = (props: Props) => {
   const { data, target } = props
-  const ctx = useContext(Context)
   const flag = useRef(true)
-  const { editGlobalObj } = ctx
 
   const handleClick = () => {
     if (target === 'hidden') {

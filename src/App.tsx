@@ -2,98 +2,34 @@ import React, { useState, useRef } from 'react'
 import { Routes, Route, Outlet } from "react-router";
 import { BrowserRouter } from "react-router-dom";
 import { Navbar, CompBar, Editor, Main, MainPreview } from "./layout";
-import _, { cloneDeep } from "lodash";
-import json, { getCompId } from "./components/jsonObj";
 import Redirect from "./commonComp/Redirect";
-import editJSON from "./editor/editObj";
 import { getFileCodeTree } from "./outScan/index";
-import { GlobalJSON, CompUnion } from './types/json';
-import { EditObj } from './types/edit';
-import { RootStore } from './types/store';
+import { CompUnion } from './types/json';
+import { RootContext } from './types/store';
+import useStore, { setActiveCompId, setCodeObj, setCompName, setEditName, setSelectComp, setSelectEdit } from "@/store";
+import { CompKey } from './components/jsonObj';
 
-export const Context = React.createContext<RootStore>({})
-
-const saveJSON = (key: string, data: GlobalJSON | EditObj) => {
-  localStorage.setItem(key, JSON.stringify(data))
-}
-const getJSON = (key: string) => {
-  const obj = localStorage.getItem(key)
-  return obj ? JSON.parse(obj) : null
-}
-
-export const defaultGlobalObj: GlobalJSON = ({
-  type: 'page',
-  title: '默认标题',
-  routeName: 'default',
-  initApi: "",
-  content: [
-    // json.Button,
-    // json.Input
-  ]
-})
+export const Context = React.createContext<RootContext | null>(null)
 
 function App() {
-  const mainRef = useRef<HTMLDivElement | null>(null)
-  const [globalObj, setGlobalObj] = useState<GlobalJSON>(getJSON('global_json') || defaultGlobalObj)
-  const [editObj, setEditObj] = useState<EditObj>(getJSON('edit_json') || editJSON)
-  const [codeObj, setCodeObj] = useState({})
+  const mainRef = useRef() as React.MutableRefObject<HTMLDivElement>
+  const { globalObj, editObj, activeCompId, activeEditId, preview, layout, compName } = useStore(state => state)
 
-  const [activeCompId, setActiveCompId] = useState<string>('')
-  const [activeEditId, setActiveEditId] = useState('')
-  const [preview, setPreview] = useState(false)
-  const [renderPC, setRenderPC] = useState(true)
-  const [order, setOrder] = useState(true)
-  const [isIframe, setIframe] = useState(true)
-  const [layout, setLayout] = useState({
-    sidebarWidth: 25,
-    editWidth: 20,
-  })
-
-  const addGlobalObj = (data: CompUnion) => {
-    if (!data && typeof data !== 'object') return
-    let newGlobalObj = _.cloneDeep(globalObj)
-    newGlobalObj.content = newGlobalObj.content.filter((item: CompUnion) => item)
-    const id = getCompId()
-    data.id = id
-    newGlobalObj.content.push(data)
-    setGlobalObj(newGlobalObj)
-    saveJSON('global_json', newGlobalObj)
-    id && setActiveCompId(id)
-  }
-
-  const editGlobalObj = (target: string, value: unknown) => {
-    let newData = _.cloneDeep(globalObj)
-    let selectComp = newData.content.find((item: CompUnion) => item.id === activeCompId)
-    selectComp && _.set(selectComp.data, target, value)
-    setGlobalObj(newData)
-    saveJSON('global_json', newData)
-  }
-  const saveGlobalObj = (data: GlobalJSON) => {
-    setGlobalObj(data)
-    saveJSON('global_json', data)
-  }
-
-  const [selectComp, compName] = React.useMemo(() => {
-    const selectComp = globalObj.content.find((item: CompUnion) => item.id === activeCompId)
-    const componentName = selectComp ? selectComp.componentName : ''
-    return [selectComp, componentName]
+  React.useMemo(() => {
+    const selectComp = globalObj.content.find((item: CompUnion) => item && item.id === activeCompId)
+    if (selectComp) {
+      const componentName = selectComp.componentName as CompKey
+      componentName && setCompName(componentName)
+      selectComp && setSelectComp(selectComp)
+    }
   }, [activeCompId])
 
-  const editEditorObj = (target: string, value: unknown) => {
-    let newData = _.cloneDeep(editObj)
-    if (compName) {
-      const selectEdit = newData[compName].find((item: CompUnion) => item.id === activeEditId)
-      selectEdit.data[target] = value
-    }
-    setEditObj(newData)
-    saveJSON('edit_json', newData)
-  }
-
-  const [selectEdit, editName] = React.useMemo(() => {
-    if (compName) {
-      const selectEdit = editObj[compName].find((item: CompUnion) => item.id === activeEditId)
+  React.useMemo(() => {
+    if (compName && editObj) {
+      const selectEdit = (editObj[compName] as any[]).find((item: CompUnion) => item && item.id === activeEditId)
       const editName = selectEdit ? selectEdit.type : null
-      return [selectEdit, editName]
+      setEditName(editName)
+      setSelectEdit(selectEdit)
     }
     return [null, null]
   }, [activeEditId])
@@ -105,7 +41,7 @@ function App() {
   React.useEffect(() => {
     if (globalObj.content.length > 0) {
       const comp = globalObj.content[0]
-      setActiveCompId(comp.id)
+      comp && setActiveCompId(comp.id)
     }
   }, [])
 
@@ -117,34 +53,6 @@ function App() {
   return (
     <Context.Provider value={{
       mainRef,
-      globalObj,
-      setGlobalObj,
-      saveGlobalObj,
-      compName,
-      selectComp,
-      activeCompId,
-      setActiveCompId,
-      addGlobalObj,
-      editGlobalObj,
-      editObj,
-      setEditObj,
-      activeEditId,
-      setActiveEditId,
-      selectEdit,
-      editName,
-      editEditorObj,
-      preview,
-      setPreview,
-      renderPC,
-      setRenderPC,
-      order,
-      setOrder,
-      codeObj,
-      setCodeObj,
-      layout,
-      setLayout,
-      isIframe,
-      setIframe
     }}>
       <div className="App">
         <BrowserRouter>

@@ -1,20 +1,27 @@
-const n = {
-  cid: ""
-}, s = (t) => {
+const o = {
+  cid: "",
+  pageX: 0,
+  pageY: 0
+}, c = (t, d) => {
   if (!document || !t.content)
     throw new Error("exist error json or document not loaded");
-  const r = t.content, e = [];
-  r.forEach((c) => {
-    const o = document.getElementById(c.id);
-    o && e.push(o), o == null || o.addEventListener("click", () => {
-      n.id = o.id, e.forEach((d) => {
-        d.style.border = "", d.id === n.id && (d.style.border = "1px solid #006cff");
+  const s = t.content, i = [];
+  if (s.forEach((n) => {
+    const e = document.getElementById(n.id);
+    e && i.push(e), e == null || e.addEventListener("click", () => {
+      o.id = e.id, i.forEach((r) => {
+        r.style.border = "", r.id === o.id && (r.style.border = "1px solid #006cff");
       });
     });
-  });
-}, i = (t) => {
-  s(t);
+  }), d.id) {
+    let n = document.getElementById(d.id);
+    n && n.addEventListener("mouseover", (e) => {
+      o.pageX = e.pageX, o.pageY = e.pageY, console.log("store position", o.pageX, o.pageY);
+    });
+  }
+}, a = (t, d) => {
+  c(t, d);
 };
 export {
-  i as default
+  a as default
 };

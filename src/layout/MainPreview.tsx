@@ -1,17 +1,19 @@
 import React from 'react'
-import { useCtx } from "../hooks";
 import Comps from '../components'
 import _ from "lodash";
 import MobileView from "../view/MobileView";
 import { CompUnion } from '../types/json';
-
+import useStore, { setActiveCompId } from "@/store";
 type Props = {
   style: React.CSSProperties
   className: string
+  children: React.ReactNode
 }
 
-const MainPreview = React.forwardRef((props: Props, ref: any) => {
-  const { activeCompId, setActiveCompId, globalObj, renderPC } = useCtx()
+const MainPreview = React.forwardRef((props: Props, ref: React.ForwardedRef<HTMLDivElement>) => {
+  const { activeCompId, globalObj, renderPC } = useStore(
+    (state) => state,
+  )
 
   const renderMainView = () => {
     return (globalObj.content).map((json: CompUnion, contentIndex: number) => {
