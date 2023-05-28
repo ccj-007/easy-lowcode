@@ -5,15 +5,21 @@ import { Navbar, CompBar, Editor, Main, MainPreview } from "./layout";
 import Redirect from "./commonComp/Redirect";
 import { getFileCodeTree } from "./outScan/index";
 import { CompUnion } from './types/json';
-import { RootContext } from './types/store';
+import { RootContext, RootStore } from './types/store';
 import useStore, { setActiveCompId, setCodeObj, setCompName, setEditName, setSelectComp, setSelectEdit } from "@/store";
 import { CompKey } from './components/jsonObj';
+import { notification } from 'antd';
 
-export const Context = React.createContext<RootContext | null>(null)
+export const Context = React.createContext<RootContext>({
+  mainRef: null,
+  contextHolder: null,
+  api: null
+})
 
 function App() {
+  const [api, contextHolder] = notification.useNotification();
   const mainRef = useRef() as React.MutableRefObject<HTMLDivElement>
-  const { globalObj, editObj, activeCompId, activeEditId, preview, layout, compName } = useStore(state => state)
+  const { globalObj, editObj, activeCompId, activeEditId, preview, layout, compName } = useStore((state) => state)
 
   React.useMemo(() => {
     const selectComp = globalObj.content.find((item: CompUnion) => item && item.id === activeCompId)
@@ -53,8 +59,11 @@ function App() {
   return (
     <Context.Provider value={{
       mainRef,
+      contextHolder,
+      api
     }}>
       <div className="App">
+        {contextHolder}
         <BrowserRouter>
           <Navbar></Navbar>
           <Routes >

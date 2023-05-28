@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import useStore, { setRenderPC, setPreview, setOrder, saveGlobalObj, setIframe } from "@/store";
+import PageModal from '@/commonComp/PageModal';
 
 type Props = {
 }
 const Navbar = (props: Props) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const navigate = useNavigate()
   const { preview, renderPC, globalObj, codeObj, order, isIframe } = useStore(
     (state) => state,
@@ -41,10 +44,23 @@ const Navbar = (props: Props) => {
     })
   }
 
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
   return (
     <div className='navbar'>
       <div className="logo">Easy-Lowcode 可视化编辑器</div>
       <div className='navbar-content'>
+        <button className="navbar-btn btn" onClick={showModal}>
+          {'配置页面'}
+        </button>
         <button className="navbar-btn btn" onClick={handleIframe}>
           {isIframe ? '默认加载' : 'iframe加载'}
         </button>
@@ -58,6 +74,8 @@ const Navbar = (props: Props) => {
           保存
         </button>
       </div>
+
+      <PageModal isModalOpen={isModalOpen} handleOk={handleOk} handleCancel={handleCancel} />
     </div>
   )
 }

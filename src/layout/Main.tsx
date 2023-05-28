@@ -10,6 +10,7 @@ import { getCompId } from "../components/jsonObj";
 import MyIframe from '../iframe/MyIframe'
 import { AiFillDelete, AiFillFileText } from "react-icons/ai";
 import useStore, { setActiveCompId, saveGlobalObj, setLayout, setGlobalObj } from "@/store";
+import useTemporalStore from '@/store/historyStore'
 
 type Props = {
   style: React.CSSProperties
@@ -17,42 +18,40 @@ type Props = {
 }
 
 const Main = React.forwardRef((props: Props, ref: React.ForwardedRef<HTMLDivElement | null>) => {
-  const { activeCompId, globalObj, renderPC, order, layout, isIframe } = useStore((state) => state)
+  const { activeCompId, globalObj, renderPC, order, layout, isIframe, projectName, routeName, baseURL } = useStore((state) => state)
   const prevY = useRef(0)
   const prevId = useRef('')
 
   const startDragId = useRef('')
   const endDragId = useRef('')
 
+  const { undo, redo } = useTemporalStore((state) => state)
+
   /**
    * 上移
    */
   const editUp = () => {
-    const newObj = produce(globalObj, (draft) => {
-      const { content } = draft
-      let idx = content.findIndex(item => item && item.id === activeCompId)
-      if (idx >= 1) {
-        [content[idx - 1], content[idx]] = [content[idx], content[idx - 1]]
-      } else {
-        alert('组件已经在最顶层了')
-      }
-    })
-    setGlobalObj(newObj)
+    const { content } = globalObj
+    let idx = content.findIndex(item => item && item.id === activeCompId)
+    if (idx >= 1) {
+      [content[idx - 1], content[idx]] = [content[idx], content[idx - 1]]
+    } else {
+      alert('组件已经在最顶层了')
+    }
+    setGlobalObj(globalObj)
   }
   /**
    * 下移
    */
   const editDown = () => {
-    const newObj = produce(globalObj, (draft) => {
-      const { content } = draft
-      let idx = content.findIndex(item => item && item.id === activeCompId)
-      if (idx < content.length - 1) {
-        [content[idx], content[idx + 1]] = [content[idx + 1], content[idx]]
-      } else {
-        alert('组件已经在最底层了')
-      }
-    })
-    setGlobalObj(newObj)
+    const { content } = globalObj
+    let idx = content.findIndex(item => item && item.id === activeCompId)
+    if (idx < content.length - 1) {
+      [content[idx], content[idx + 1]] = [content[idx + 1], content[idx]]
+    } else {
+      alert('组件已经在最底层了')
+    }
+    setGlobalObj(globalObj)
   }
   /**
    * 上选
@@ -82,11 +81,9 @@ const Main = React.forwardRef((props: Props, ref: React.ForwardedRef<HTMLDivElem
    * 删除
    */
   const selectDel = () => {
-    const newObj = produce(globalObj, (draft) => {
-      let idx = draft.content.findIndex(item => item && item.id === activeCompId)
-      draft.content.splice(idx, 1)
-    })
-    setGlobalObj(newObj)
+    let idx = globalObj.content.findIndex(item => item && item.id === activeCompId)
+    globalObj.content.splice(idx, 1)
+    setGlobalObj(globalObj)
   }
   /**1
    * 清空
@@ -191,13 +188,15 @@ const Main = React.forwardRef((props: Props, ref: React.ForwardedRef<HTMLDivElem
         {
           order && <div className='tools'>
             <div className='tools-status'>
-              项目名：{'cms2'}
+              项目名：{projectName}
               &nbsp;&nbsp;&nbsp;&nbsp;
-              路由名：{'/default'}
+              路由名：{routeName}
               &nbsp;&nbsp;&nbsp;&nbsp;
-              BaseURL：{'http://localhost:5173'}
+              BaseURL：{baseURL}
             </div>
             <div className='tools-edit'>
+              <div className="tools-item" onClick={() => undo()}>回溯</div>
+              <div className="tools-item" onClick={() => redo()}>递进</div>
               <div className="tools-item" onClick={editUp}>上移</div>
               <div className="tools-item" onClick={editDown}>下移</div>
               <div className="tools-item" onClick={selectUp}>上选</div>

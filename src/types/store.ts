@@ -4,6 +4,7 @@ import { EditObj } from "./edit";
 import { Panel } from "./enum";
 import { CompKey } from "@/components/jsonObj";
 import { CodeObj } from "./code";
+import type { NotificationInstance } from 'antd/es/notification/interface';
 
 export type LayoutParams = {
     sidebarWidth: number;
@@ -11,10 +12,18 @@ export type LayoutParams = {
 }
 export type RootContext = {
     /** 主舞台Ref */
-    mainRef: MutableRefObject<HTMLDivElement>
+    mainRef: MutableRefObject<HTMLDivElement> | null
+    contextHolder: React.ReactElement<any, string | React.JSXElementConstructor<any>> | null
+    api: NotificationInstance | null
 }
 
 export type RootStore = {
+    /** 项目名 */
+    projectName: string
+    /** 路由名 */
+    routeName: string
+    /** baseURL */
+    baseURL: string
     /** 主舞台组件 */
     globalObj: GlobalJSON
     /** 当前激活（拖拽）的组件名 */

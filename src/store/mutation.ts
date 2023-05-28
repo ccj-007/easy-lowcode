@@ -39,3 +39,9 @@ export const setLayout = (layout: LayoutParams) => useStore.setState({ layout })
 export const setIframe = (isIframe: boolean) => useStore.setState({ isIframe })
 
 export const setActivePanelId = (activePanelId: Panel) => useStore.setState({ activePanelId })
+
+export const setProjectName = (projectName: string) => useStore.setState({ projectName })
+
+export const setRouteName = (routeName: string) => useStore.setState({ routeName })
+
+export const setBaseURL = (baseURL: string) => useStore.setState({ baseURL })

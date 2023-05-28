@@ -22,8 +22,8 @@
   <script>
     var process = { env: { NODE_ENV: "development" } }
   </script>
-  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
   <link rel="stylesheet" href="/renderer/style.css">
   <script type="module">
     import Renderer from '/renderer/index.js'
@@ -57,7 +57,7 @@
         }
       ]
     }
-    const App = document.getElementById('app');
+    const container = document.getElementById('app');
 
     window.addEventListener("message", receiveMessage, false);
 
@@ -68,11 +68,11 @@
     }
 
     function render () {
-      ReactDOM.render(Renderer({ jsonObj: json }), App);
+      const root = ReactDOM.createRoot(container);
+      root.render(Renderer({ jsonObj: json }));
       initEditor(json, options)
     } 
     render()
-
   </script>
 </body>
 

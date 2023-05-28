@@ -5,11 +5,11 @@ const renderConfig: UserConfigExport = {
   build: {
     outDir: "es",
     lib: {
-      entry: "../src/renderer/index.ts",
+      entry: "src/renderer/index.ts",
     },
     minify: true,
     rollupOptions: {
-      input: ["../src/renderer/index.ts"],
+      input: ["src/renderer/index.ts"],
       /**
        * react 没有esm的包可以导入所以不能排除，如果在html中使用请保留
        * 如果在cra或其他cli中请排除
@@ -20,7 +20,7 @@ const renderConfig: UserConfigExport = {
         {
           format: "es",
           entryFileNames: "index.js",
-          dir: "../renderer",
+          dir: "renderer",
         },
       ],
     },

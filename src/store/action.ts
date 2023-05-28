@@ -3,7 +3,6 @@
  */
 import { RootStore } from '@/types/store'
 import { CompUnion, GlobalJSON } from '@/types/json'
-import { saveJSON } from '@/utils/storage'
 import { getCompId } from "@/components/jsonObj";
 import _ from "lodash";
 import { EditUnion, LowcodeCompAttributes } from '@/types/edit'
@@ -14,7 +13,6 @@ import { setActiveCompId, setEditObj } from "./mutation";
  * 保存组件
  */
 export const saveGlobalObj = (data: GlobalJSON) => useStore.setState((state: RootStore) => {
-    saveJSON('global_json', data)
     return ({ globalObj: data })
 })
 
@@ -24,18 +22,12 @@ export const saveGlobalObj = (data: GlobalJSON) => useStore.setState((state: Roo
  * @returns 
  */
 export const addGlobalObj = (data: CompUnion) => useStore.setState((state: RootStore) => {
-    if (data) {
-        let newGlobalObj = _.cloneDeep(state.globalObj)
-        newGlobalObj.content = newGlobalObj.content.filter((item: CompUnion) => item)
-        const id = getCompId()
-        data.id = id
-        newGlobalObj.content.push(data)
-        saveJSON('global_json', newGlobalObj)
-        id && setActiveCompId(id)
-        return ({ globalObj: newGlobalObj })
-    } else {
-        return {}
-    }
+    const { globalObj } = state
+    const id = getCompId()
+    data.id = id
+    globalObj.content.push(data)
+    id && setActiveCompId(id)
+    return state
 })
 
 /**
@@ -45,28 +37,20 @@ export const addGlobalObj = (data: CompUnion) => useStore.setState((state: RootS
  * @returns 
  */
 export const editGlobalObj = (property: string, value: unknown) => useStore.setState((state: RootStore) => {
-    let newData = _.cloneDeep(state.globalObj)
-    if (newData) {
-        let selectComp = newData.content.find((item: CompUnion) => item && item.id === state.activeCompId)
-        selectComp && _.set(selectComp.data, property, value)
-        saveJSON('global_json', newData)
-        return ({ selectComp: selectComp, globalObj: newData })
-    } else {
-        return {}
-    }
+    const { globalObj } = state
+    let selectComp = globalObj.content.find((item: CompUnion) => item && item.id === state.activeCompId)
+    selectComp && _.set(selectComp.data, property, value)
+    return state
 })
 
 export const editEditorObj = (property: keyof LowcodeCompAttributes, value: unknown) => useStore.setState((state: RootStore) => {
-    let newData = _.cloneDeep(state.editObj)
-    if (state.compName && newData) {
-        const selectEdit = (newData[state.compName] as EditUnion[]).find((item: EditUnion) => item && item.id === state.activeEditId)
+    const { editObj } = state
+    if (editObj) {
+        const selectEdit = (editObj[state.compName] as EditUnion[]).find((item: EditUnion) => item && item.id === state.activeEditId)
         if (selectEdit) {
             selectEdit.data[property] = value
         }
-        setEditObj(newData)
-        saveJSON('edit_json', newData)
-        return ({ editObj: newData })
-    } else {
-        return {}
+        setEditObj(editObj)
     }
+    return state
 })

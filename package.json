@@ -22,6 +22,7 @@
     "@uiw/codemirror-extensions-langs": "^4.19.9",
     "@uiw/codemirror-themes-all": "^4.19.9",
     "@uiw/react-codemirror": "^4.19.8",
+    "antd": "^5.5.1",
     "classnames": "^2.3.2",
     "cross-env": "^7.0.3",
     "handlebars": "^4.7.7",
@@ -42,6 +43,7 @@
     "react-router": "^6.8.1",
     "react-router-dom": "^6.8.1",
     "uuid": "^9.0.0",
+    "zundo": "2.0.0-beta.18",
     "zustand": "^4.3.8"
   },
   "devDependencies": {
